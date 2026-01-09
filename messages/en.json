@@ -1,0 +1,12 @@
+{
+  "nav": {
+    "contact": "Contact",
+    "shop": "Shop"
+  },
+  "hero": {
+    "title": "Bloom & Grow: The Emotion Lab",
+    "subtitle": "Stories and tools to help children explore emotions with calm, warmth, and imagination.",
+    "ctaAmazon": "Buy on Amazon",
+    "ctaEtsy": "Visit Etsy"
+  }
+}
