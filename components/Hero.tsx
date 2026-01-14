@@ -3,6 +3,7 @@
 import Image from 'next/image'
 import { useTranslations } from 'next-intl'
 import BlobPill from '@/components/BlobPill'
+import PinkBlobs from '@/components/PinkBlobs'
 // import CurvedTitle from '@/components/CurvedTitle'
 
 export default function Hero() {
@@ -80,9 +81,7 @@ export default function Hero() {
           </div>
 
           {/* pink blobs (decor) */}
-          <div className="pointer-events-none absolute left-8 top-28 h-24 w-24 rounded-[40%] bg-[#FF56C9]" />
-          <div className="pointer-events-none absolute bottom-12 right-10 h-28 w-36 rounded-[45%] bg-[#FF56C9]" />
-          <div className="pointer-events-none absolute bottom-6 left-10 h-16 w-20 rounded-[50%] bg-[#FF56C9]" />
+          <PinkBlobs />
         </div>
       </div>
     </section>

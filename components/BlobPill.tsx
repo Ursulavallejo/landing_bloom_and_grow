@@ -27,7 +27,7 @@ export default function BlobPill({ children }: { children: ReactNode }) {
         />
       </svg>
 
-      <span className="relative z-10 text-center font-semibold tracking-tight leading-[1.7] text-white">
+      <span className="relative z-10 translate-y-[4px] md:translate-y-[6px] text-center font-semibold tracking-tight leading-[1.3] text-white">
         {children}
       </span>
     </div>
