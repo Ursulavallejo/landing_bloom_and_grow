@@ -1,12 +1,17 @@
 {
   "nav": {
-    "contact": "Contact",
-    "shop": "Shop"
+    "about": "Our Project",
+    "books": "Books",
+    "contact": "Contact"
   },
   "hero": {
-    "title": "Bloom & Grow: The Emotion Lab",
+    "title": "BLOOM & GROW",
+    "pill": "THE EMOTION\nLAB",
     "subtitle": "Stories and tools to help children explore emotions with calm, warmth, and imagination.",
     "ctaAmazon": "Buy on Amazon",
     "ctaEtsy": "Visit Etsy"
+  },
+  "header": {
+    "brand": "Bloom & Grow Lab"
   }
 }

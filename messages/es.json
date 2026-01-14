@@ -1,12 +1,17 @@
 {
   "nav": {
-    "contact": "Contacto",
-    "shop": "Tienda"
+    "about": "Proyecto",
+    "books": "Libros",
+    "contact": "Contacto"
   },
   "hero": {
-    "title": "ESPAÑOL ✅Bloom & Grow: El Laboratorio de Emociones",
+    "title": "BLOOM & GROW",
+    "pill": "EL LABORATORIO\nDE EMOCIONES",
     "subtitle": "Historias y herramientas para que los niños exploren sus emociones con calma, calidez e imaginación.",
     "ctaAmazon": "Comprar en Amazon",
     "ctaEtsy": "Ver Etsy"
+  },
+  "header": {
+    "brand": "Bloom & Grow Lab"
   }
 }

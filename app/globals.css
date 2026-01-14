@@ -1,26 +1,79 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+/* Base*/
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html,
+body {
+  height: 100%;
+  margin: 0;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
+  background: rgb(var(--bg));
+  color: rgb(var(--fg));
   font-family: Arial, Helvetica, sans-serif;
+}
+
+.font-hero {
+  font-family: var(--font-barrio), system-ui, sans-serif;
+}
+
+.font-brand {
+  font-family: var(--font-caveat), system-ui, sans-serif;
+}
+
+.font-ui {
+  font-family: var(--font-quicksand), system-ui, sans-serif;
+}
+
+/*Bloom & Grow — Theme Tokens */
+
+:root {
+  /* Base */
+  --bg: 255 244 236;
+  --fg: 24 24 27;
+  --muted: 113 113 122;
+
+  /* Surfaces */
+  --card: 250 250 250;
+  --border: 228 228 231;
+  --hero-bg: 246 239 230;
+
+  /* Brand */
+  --primary: 16 185 129;
+  --primary-foreground: 255 255 255;
+
+  --accent: 236 72 153;
+  --accent-foreground: 255 255 255;
+
+  /* Soft tints */
+  --tint-1: 236 253 245;
+  --tint-2: 253 242 248;
+
+  --page-pad: 24px;
+}
+
+.dark {
+  --bg: 9 9 11;
+  --fg: 244 244 245;
+  --muted: 161 161 170;
+
+  --card: 24 24 27;
+  --border: 63 63 70;
+
+  --primary: 52 211 153;
+  --primary-foreground: 9 9 11;
+  --hero-bg: 0 0 0;
+
+  --accent: 244 114 182;
+  --accent-foreground: 9 9 11;
+
+  --tint-1: 6 78 59;
+  --tint-2: 131 24 67;
+}
+
+@media (min-width: 768px) {
+  :root {
+    --page-pad: 32px;
+  }
 }

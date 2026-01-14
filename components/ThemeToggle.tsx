@@ -2,10 +2,10 @@
 
 import { useTheme } from 'next-themes'
 import { useEffect, useState } from 'react'
+import { Icons } from '@/icons'
 
 export default function ThemeToggle() {
   const { resolvedTheme, setTheme } = useTheme()
-
   const [ready, setReady] = useState(false)
 
   useEffect(() => {
@@ -15,15 +15,34 @@ export default function ThemeToggle() {
 
   const isDark = resolvedTheme === 'dark'
 
+  const SunIcon = Icons.sunIcon
+  const MoonIcon = Icons.moonIcon
+
   return (
     <button
       type="button"
       aria-label="Toggle theme"
-      className="rounded-xl border border-zinc-300 px-3 py-2 text-sm hover:bg-zinc-100 dark:border-zinc-700 dark:hover:bg-zinc-900 disabled:opacity-50"
-      disabled={!ready}
+      className="
+    rounded-xl
+    border border-[rgb(var(--border))]
+    bg-[rgb(var(--card))]
+    p-2
+    text-[rgb(var(--fg))]
+    transition
+    hover:bg-[rgb(var(--tint-1))]
+    dark:hover:bg-[rgb(var(--tint-2))]
+  "
       onClick={() => setTheme(isDark ? 'light' : 'dark')}
     >
-      {ready ? (isDark ? '🌙' : '☀️') : '…'}
+      {ready ? (
+        isDark ? (
+          <SunIcon className="h-5 w-5" />
+        ) : (
+          <MoonIcon className="h-5 w-5" />
+        )
+      ) : (
+        <span className="inline-block h-5 w-5" />
+      )}
     </button>
   )
 }

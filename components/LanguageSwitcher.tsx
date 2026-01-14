@@ -19,11 +19,14 @@ export default function LanguageSwitcher() {
     <div className="flex items-center gap-1 rounded-xl border border-zinc-300 p-1 text-sm dark:border-zinc-700">
       <Link
         href={hrefFor('es')}
-        className={`rounded-lg px-2 py-1 ${
-          currentLocale === 'es'
-            ? 'bg-zinc-200 dark:bg-zinc-800'
-            : 'hover:bg-zinc-100 dark:hover:bg-zinc-900'
-        }`}
+        className={`
+    rounded-lg px-3 py-1 text-sm font-medium transition
+    ${
+      currentLocale === 'es'
+        ? 'bg-[rgb(var(--primary))] text-[rgb(var(--primary-foreground))]'
+        : 'text-[rgb(var(--fg))] hover:bg-[rgb(var(--tint-1))]'
+    }
+  `}
       >
         ES
       </Link>
@@ -32,8 +35,8 @@ export default function LanguageSwitcher() {
         href={hrefFor('en')}
         className={`rounded-lg px-2 py-1 ${
           currentLocale === 'en'
-            ? 'bg-zinc-200 dark:bg-zinc-800'
-            : 'hover:bg-zinc-100 dark:hover:bg-zinc-900'
+            ? 'bg-[rgb(var(--primary))] text-[rgb(var(--primary-foreground))]'
+            : 'text-[rgb(var(--fg))] hover:bg-[rgb(var(--tint-1))]'
         }`}
       >
         EN
