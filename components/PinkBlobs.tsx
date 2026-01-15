@@ -88,7 +88,7 @@ export default function PinkBlobs() {
           pointer-events-none absolute
           right-6 top-16
           h-28 w-32
-          md:right-[-50px] md:top-5
+          md:right-[-50px] md:top-1
            md:h-30 md:w-40
         "
         viewBox="0 0 240 200"
