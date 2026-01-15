@@ -86,10 +86,8 @@ export default function Hero() {
             <PinkBlobs />
           </div>
         </div>
-
-        {/* Pink bottom wave overlay (always on top) */}
-        {/* <PinkWave /> */}
       </section>
+      {/* Pink bottom wave overlay (always on top) */}
       <PinkWave />
     </>
   )
