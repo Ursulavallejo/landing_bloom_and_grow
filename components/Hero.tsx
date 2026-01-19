@@ -46,14 +46,14 @@ export default function Hero() {
 
             <div className="mt-8 flex flex-wrap gap-4">
               <a
-                className="rounded-xl bg-[#FF56C9] px-5 py-3 font-nav text-sm font-semibold text-white hover:opacity-90"
+                className="rounded-xl bg-[#FF56C9] px-5 py-3 font-nav text-sm font-semibold text-white hover:opacity-90 hover:scale-105 transition"
                 href="#"
               >
                 {t('hero.ctaAmazon')}
               </a>
 
               <a
-                className="rounded-xl bg-[#35B26B] px-5 py-3 font-nav text-sm font-semibold text-white hover:opacity-90"
+                className="rounded-xl bg-[#35B26B] px-5 py-3 font-nav text-sm font-semibold text-white hover:opacity-90 hover:scale-105 transition"
                 href="#"
               >
                 {t('hero.ctaEtsy')}
@@ -63,13 +63,6 @@ export default function Hero() {
             {/* logo stamp  */}
             <div className="pointer-events-none absolute bottom-6 right-6 opacity-90">
               <div className="relative  h-28 w-28 md:h-32 md:w-32 overflow-hidden  rounded-full " />
-              {/* <Image
-                src="/logo_cerebro_flordentro_transp.png"
-                alt="logo bloom and grow: emotion lab"
-                fill
-                priority
-                className="object-contain "
-              /> */}
               <LogoStampImage />
             </div>
           </div>

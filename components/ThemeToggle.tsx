@@ -29,8 +29,8 @@ export default function ThemeToggle() {
     p-2
     text-[rgb(var(--fg))]
     transition
-    hover:bg-[rgb(var(--tint-1))]
-    dark:hover:bg-[rgb(var(--tint-2))]
+    hover:text-[rgb(var(--primary))]
+
   "
       onClick={() => setTheme(isDark ? 'light' : 'dark')}
     >

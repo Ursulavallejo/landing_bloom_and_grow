@@ -1,6 +1,7 @@
 {
   "nav": {
-    "about": "Our Project",
+    "about": "About Us",
+    "project": "Our Project",
     "books": "Books",
     "contact": "Contact"
   },

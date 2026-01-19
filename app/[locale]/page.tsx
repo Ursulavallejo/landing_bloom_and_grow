@@ -4,7 +4,7 @@ import BackgroundImage from '@/components/BackgroundImage'
 
 export default function Page() {
   return (
-    <main className=" mx-auto max-w-6xl px-[var(--page-pad)] pt-12 ">
+    <main id="top" className=" mx-auto max-w-6xl px-(--page-pad) pt-12 ">
       {/* BACKGROUND IMAGE */}
 
       <BackgroundImage />

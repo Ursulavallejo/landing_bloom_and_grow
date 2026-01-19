@@ -24,7 +24,7 @@ export default function LanguageSwitcher() {
     ${
       currentLocale === 'es'
         ? 'bg-[rgb(var(--primary))] text-[rgb(var(--primary-foreground))]'
-        : 'text-[rgb(var(--fg))] hover:bg-[rgb(var(--tint-1))]'
+        : 'text-[rgb(var(--fg))] hover:bg-[rgb(var(--tint-1))] '
     }
   `}
       >
@@ -33,10 +33,10 @@ export default function LanguageSwitcher() {
 
       <Link
         href={hrefFor('en')}
-        className={`rounded-lg px-2 py-1 ${
+        className={`rounded-lg px-2 py-1  ${
           currentLocale === 'en'
             ? 'bg-[rgb(var(--primary))] text-[rgb(var(--primary-foreground))]'
-            : 'text-[rgb(var(--fg))] hover:bg-[rgb(var(--tint-1))]'
+            : 'text-[rgb(var(--fg))] hover:bg-[rgb(var(--tint-1))] '
         }`}
       >
         EN
