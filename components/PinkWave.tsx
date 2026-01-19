@@ -6,14 +6,12 @@ export default function PinkWave() {
       <div
         aria-hidden="true"
         className="
-          pointer-events-none
-          absolute inset-x-0
-
-          hidden md:flex
-          h-56
-          z-30
-          translate-y-10
-           bottom-[-12px]
+     pointer-events-none
+    absolute bottom-[-65px]
+    hidden md:flex
+    h-48
+    z-30
+    w-screen left-1/2 -translate-x-1/2
         "
       >
         {/* LEFT: straight band */}
@@ -47,30 +45,32 @@ export default function PinkWave() {
         </svg>
       </div>
 
-      {/* Mobile: only a small wave on bottom-right */}
+      {/* Mobile: full-width wave across the whole hero */}
       <svg
         aria-hidden="true"
         className="
-          pointer-events-none
-          absolute
-          bottom-[-10px] right-[-10px]
-          md:hidden
-          h-24 w-80
-          z-30
-        "
-        viewBox="0 0 360 160"
+        pointer-events-none
+        absolute inset-x-0 bottom-[-46px]
+        md:hidden
+        w-screen
+        h-32
+        z-30
+        left-1/2 -translate-x-1/2
+      "
+        viewBox="0 0 720 200"
         preserveAspectRatio="none"
       >
         <path
           fill="#FF56C9"
           d="
-            M0,78
-            C20,45 55,45 78,78
-            C110,125 150,95 185,86
-            C230,70 250,140 295,110
-            C330,90 350,92 360,98
-            L360,160 L0,160 Z
-          "
+          M0,115
+          C30,65 65,55 120,105
+          C150,125 210,114 260,92
+          C320,30 360,125 420,100
+          C602,15 515,145 585,115
+          C645,100 655,28 750,38
+          L720,200 L0,240 Z
+        "
         />
       </svg>
     </>

@@ -1,5 +1,6 @@
 import './globals.css'
 import Providers from '@/components/Providers'
+import { ThemeColorMeta } from '@/app/themeColorMeta'
 import { barrio, caveat, quicksand, elite } from './fonts'
 
 export default function RootLayout({
@@ -13,8 +14,11 @@ export default function RootLayout({
       suppressHydrationWarning
       className={`${barrio.variable} ${caveat.variable} ${elite.variable} ${quicksand.variable}`}
     >
-      <body className="min-h-screen bg-white text-zinc-900 dark:bg-zinc-950 dark:text-zinc-100">
-        <Providers>{children}</Providers>
+      <body className="min-h-screen">
+        <Providers>
+          <ThemeColorMeta />
+          {children}
+        </Providers>
       </body>
     </html>
   )

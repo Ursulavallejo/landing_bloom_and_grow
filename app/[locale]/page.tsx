@@ -9,8 +9,13 @@ export default function Page() {
 
       <BackgroundImage />
 
-      <section className="min-h-dvh flex flex-col pt-6 pb-4 gap-4">
+      <section className=" flex flex-col pt-9 md:pt-6 pb-4 gap-4">
         <Header />
+        <div
+          aria-hidden
+          id="scroll-sentinel"
+          className="h-px -mt-px pointer-events-none select-none"
+        />
         <Hero />
       </section>
     </main>

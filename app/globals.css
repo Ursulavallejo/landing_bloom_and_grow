@@ -1,11 +1,21 @@
 @import 'tailwindcss';
 
+@theme {
+  --breakpoint-sm: 40rem; /* 640 */
+  --breakpoint-tablet: 48rem; /* 768 */
+  --breakpoint-md: 56.25rem; /* 900 */
+  --breakpoint-lg: 75rem; /* 1200 */
+  --breakpoint-xl: 87.5rem; /* 1400 */
+  --breakpoint-2xl: 100rem; /* 1600 */
+}
+
 /* Base*/
 
 html,
 body {
   height: 100%;
   margin: 0;
+  overflow-x: hidden;
 }
 
 html {

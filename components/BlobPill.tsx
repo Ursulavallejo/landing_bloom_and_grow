@@ -5,10 +5,18 @@ import { ReactNode } from 'react'
 
 export default function BlobPill({ children }: { children: ReactNode }) {
   return (
-    <div className="relative inline-flex items-center justify-center px-16 py-6 md:px-15 md:py-10">
+    <div
+      className="
+        relative inline-flex items-center justify-center
+        min-w-[180px] sm:min-w-[240px] md:min-w-0
+        px-12 py-4 sm:px-12 sm:py-5 md:px-15 md:py-10
+        min-h-[98px] sm:min-h-[110px] md:min-h-[120px]
+      "
+    >
       <svg
         viewBox="0 0 600 240"
-        className="absolute inset-0 h-full w-full"
+        className="  absolute inset-0 h-full w-full
+  sm:inset-y-0 sm:-inset-x-3 sm:w-[calc(100%+1.5rem)]"
         preserveAspectRatio="none"
         aria-hidden="true"
       >
@@ -27,7 +35,7 @@ export default function BlobPill({ children }: { children: ReactNode }) {
         />
       </svg>
 
-      <span className="relative z-10 translate-y-[4px] md:translate-y-[6px] text-center font-semibold tracking-tight leading-[1.3] text-white">
+      <span className="relative translate-y-2 translate-x-2 z-10 text-center font-semibold tracking-tight leading-[1.2] text-white">
         {children}
       </span>
     </div>

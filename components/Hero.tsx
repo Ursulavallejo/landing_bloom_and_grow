@@ -13,25 +13,27 @@ export default function Hero() {
   const pill = t('hero.pill')
 
   return (
-    <>
+    <div className="relative overflow-visible ">
       <section className="relative flex-1 overflow-hidden rounded-3xl border border-[rgb(var(--border))]">
-        <div className="grid md:grid-cols-2">
+        <div className="grid  grid-cols-1  md:grid-cols-2">
           {/* LEFT */}
           <div className="relative bg-[rgb(var(--hero-bg))] p-8 md:p-12">
             {/* Hero title */}
-            <div className="mt-4 flex items-start gap-6">
+            <div className="mt-4 grid grid-cols-[auto_1fr] items-start gap-x-4 gap-y-3 md:flex md:gap-6">
               <h1 className="font-hero text-5xl leading-[0.9] tracking-tight text-[#35B26B] md:text-7xl">
                 BLOOM <br /> &amp; GROW
               </h1>
-              {/* <CurvedTitle /> */}
 
               {/* pill */}
-              <div className="mt-4 md:mt-6 uppercase tracking-wide ">
+              <div
+                className=" uppercase tracking-wide justify-self-start sm:justify-self-end mt-6 sm:mt-2 md:mt-6 -translate-x-13 sm:translate-x-0 max-w-[240px] sm:max-w-none tablet:-translate-x-10
+    "
+              >
                 <BlobPill>
                   {pill.split('\n').map((line, i) => (
                     <span
                       key={i}
-                      className="block whitespace-nowrap font-subtitle tracking-wide md:tracking-wide"
+                      className="block whitespace-nowrap font-subtitle tracking-wide"
                     >
                       {line}
                     </span>
@@ -40,7 +42,10 @@ export default function Hero() {
               </div>
             </div>
 
-            <p className="mt-6 max-w-md font-nav text-base leading-relaxed text-[rgb(var(--fg))]">
+            <p
+              className="mt-6 max-w-full tablet:max-w-[410px] md:max-w-md
+              font-nav text-base leading-relaxed text-[rgb(var(--fg))]"
+            >
               {t('hero.subtitle')}
             </p>
 
@@ -61,8 +66,8 @@ export default function Hero() {
             </div>
 
             {/* logo stamp  */}
-            <div className="pointer-events-none absolute bottom-6 right-6 opacity-90">
-              <div className="relative  h-28 w-28 md:h-32 md:w-32 overflow-hidden  rounded-full " />
+            <div className="pointer-events-none absolute bottom-4 md:bottom-6 right-6 opacity-90">
+              <div className="relative   h-28 w-28 md:h-32 md:w-32 overflow-hidden  rounded-full " />
               <LogoStampImage />
             </div>
           </div>
@@ -87,6 +92,6 @@ export default function Hero() {
       </section>
       {/* Pink bottom wave overlay (always on top) */}
       <PinkWave />
-    </>
+    </div>
   )
 }
