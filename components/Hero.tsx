@@ -6,6 +6,7 @@ import BlobPill from '@/components/BlobPill'
 import PinkBlobs from '@/components/PinkBlobs'
 import PinkWave from '@/components/PinkWave'
 // import CurvedTitle from '@/components/CurvedTitle'
+import LogoStampImage from '@/components/LogoStampImage'
 
 export default function Hero() {
   const t = useTranslations()
@@ -25,10 +26,13 @@ export default function Hero() {
               {/* <CurvedTitle /> */}
 
               {/* pill */}
-              <div className="mt-4 md:mt-6 uppercase tracking-wide font-semibold">
+              <div className="mt-4 md:mt-6 uppercase tracking-wide ">
                 <BlobPill>
                   {pill.split('\n').map((line, i) => (
-                    <span key={i} className="block whitespace-nowrap">
+                    <span
+                      key={i}
+                      className="block whitespace-nowrap font-subtitle tracking-wide md:tracking-wide"
+                    >
                       {line}
                     </span>
                   ))}
@@ -59,13 +63,14 @@ export default function Hero() {
             {/* logo stamp  */}
             <div className="pointer-events-none absolute bottom-6 right-6 opacity-90">
               <div className="relative  h-28 w-28 md:h-32 md:w-32 overflow-hidden  rounded-full " />
-              <Image
+              {/* <Image
                 src="/logo_cerebro_flordentro_transp.png"
                 alt="logo bloom and grow: emotion lab"
                 fill
                 priority
                 className="object-contain "
-              />
+              /> */}
+              <LogoStampImage />
             </div>
           </div>
 

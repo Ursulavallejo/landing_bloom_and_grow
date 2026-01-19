@@ -18,6 +18,10 @@ body {
   font-family: var(--font-barrio), system-ui, sans-serif;
 }
 
+.font-subtitle {
+  font-family: var(--font-elite), system-ui, sans-serif;
+}
+
 .font-brand {
   font-family: var(--font-caveat), system-ui, sans-serif;
 }

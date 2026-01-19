@@ -1,4 +1,4 @@
-import { Barrio, Caveat, Quicksand } from 'next/font/google'
+import { Barrio, Caveat, Quicksand, Special_Elite } from 'next/font/google'
 
 export const barrio = Barrio({
   subsets: ['latin'],
@@ -11,6 +11,13 @@ export const caveat = Caveat({
   subsets: ['latin'],
   weight: ['400', '600', '700'],
   variable: '--font-caveat',
+  display: 'swap',
+})
+
+export const elite = Special_Elite({
+  subsets: ['latin'],
+  weight: ['400'],
+  variable: '--font-elite',
   display: 'swap',
 })
 

@@ -12,7 +12,7 @@ function useIsClient() {
   )
 }
 
-export default function BackgroundImage() {
+export default function LogoStampImage() {
   const isClient = useIsClient()
   const { resolvedTheme } = useTheme()
 
@@ -20,12 +20,18 @@ export default function BackgroundImage() {
 
   const src =
     resolvedTheme === 'dark'
-      ? '/background_lines_dark.png'
-      : '/background_lines_light.png'
+      ? '/logo_white_flordentro.png'
+      : '/logo_cerebro_flordentro_transp.png'
 
   return (
-    <div className="pointer-events-none fixed inset-0 -z-10 opacity-60">
-      <Image src={src} alt="" fill priority className="object-cover" />
+    <div className="pointer-events-none">
+      <Image
+        src={src}
+        alt="logo bloom and grow: emotion lab"
+        fill
+        priority
+        className="object-contain"
+      />
     </div>
   )
 }
