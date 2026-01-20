@@ -13,8 +13,6 @@ export default function Header() {
   const Ig = Icons.instagramIcon
   const Fb = Icons.facebookIcon
 
-  const debug = true
-
   const [menuOpen, setMenuOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
 
@@ -41,20 +39,13 @@ export default function Header() {
         root: null, // viewport real
         threshold: 0,
         rootMargin: '-1px 0px 0px 0px',
-      }
+      },
     )
 
     observer.observe(sentinel)
 
     return () => observer.disconnect()
   }, [])
-
-  //  useEffect(() => {
-  //   const onScroll = () => setScrolled(window.scrollY > 8)
-  //   onScroll() // set initial state
-  //   window.addEventListener('scroll', onScroll, { passive: true })
-  //   return () => window.removeEventListener('scroll', onScroll)
-  // }, [])
 
   // Lock body scroll when menu is open + close on ESC
   useEffect(() => {
@@ -76,22 +67,6 @@ export default function Header() {
 
   return (
     <header className="fixed inset-x-0 top-0 z-50 font-ui">
-      {/* {debug && (
-        <div className="fixed bottom-4 left-4 z-[9999] rounded bg-black/80 px-3 py-2 text-xs text-white">
-          scrolled: {String(scrolled)}
-          <br />
-          y: {typeof window !== 'undefined' ? window.scrollY : 'ssr'}
-          <br />
-          docEl:{' '}
-          {typeof window !== 'undefined'
-            ? document.documentElement.scrollTop
-            : 'ssr'}
-          <br />
-          body:{' '}
-          {typeof window !== 'undefined' ? document.body.scrollTop : 'ssr'}
-        </div>
-      )} */}
-
       {/* Glass background */}
       <div
         aria-hidden="true"
@@ -224,8 +199,8 @@ export default function Header() {
               !mounted
                 ? 'bg-white/30'
                 : isDark
-                ? 'bg-zinc-950/60'
-                : 'bg-white/30',
+                  ? 'bg-zinc-950/60'
+                  : 'bg-white/30',
             ].join(' ')}
           />
 

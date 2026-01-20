@@ -8,9 +8,8 @@ export default function PinkBlobs() {
         aria-hidden="true"
         className="
           pointer-events-none absolute
-          left-10 top-24
-          h-16 w-20
-          md:left-5 md:top-38 md:h-20 md:w-24
+          left-[8%] top-[14%]
+          h-[clamp(48px,6vw,80px)] w-[clamp(60px,7vw,96px)]
         "
         viewBox="0 0 200 160"
       >
@@ -34,9 +33,9 @@ export default function PinkBlobs() {
         aria-hidden="true"
         className="
           pointer-events-none absolute
-          left-12 bottom-14
-          h-12 w-14
-          md:left-26 md:bottom-16 md:h-14 md:w-16
+          left-[12%] bottom-[10%]
+          h-[clamp(36px,4.5vw,64px)] w-[clamp(44px,5.5vw,72px)]
+
         "
         viewBox="0 0 180 160"
       >
@@ -59,10 +58,9 @@ export default function PinkBlobs() {
         aria-hidden="true"
         className="
           pointer-events-none absolute
-          right-12 bottom-20
-          h-20 w-24
-          md:right-41
-           md:bottom-16 md:h-24 md:w-28
+          right-[14%] bottom-[12%]
+          h-[clamp(56px,7vw,112px)] w-[clamp(64px,8vw,128px)]
+
         "
         viewBox="0 0 220 180"
       >
@@ -86,10 +84,9 @@ export default function PinkBlobs() {
         aria-hidden="true"
         className="
           pointer-events-none absolute
-          right-6 top-16
-          h-28 w-32
-          md:right-[-50px] md:top-1
-           md:h-30 md:w-40
+          right-[-6%] top-[4%]
+          h-[clamp(90px,10vw,160px)] w-[clamp(110px,12vw,190px)]
+
         "
         viewBox="0 0 240 200"
       >
@@ -113,9 +110,9 @@ export default function PinkBlobs() {
         aria-hidden="true"
         className="
           pointer-events-none absolute
-          right-24 top-36
-          h-10 w-12
-          md:right-10 md:top-30 md:h-12 md:w-14
+          right-[18%] top-[22%]
+          h-[clamp(26px,3.5vw,56px)] w-[clamp(32px,4vw,64px)]
+
         "
         viewBox="0 0 120 100"
       >

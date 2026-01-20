@@ -12,12 +12,30 @@ export default function Hero() {
   const t = useTranslations()
   const pill = t('hero.pill')
 
+  const CTAButtons = (
+    <>
+      <a
+        className="rounded-xl bg-[#FF56C9] px-4 py-3 sm:px-5 font-nav text-sm font-semibold text-white whitespace-nowrap hover:opacity-90 hover:scale-105 transition"
+        href="#"
+      >
+        {t('hero.ctaAmazon')}
+      </a>
+
+      <a
+        className="rounded-xl bg-[#35B26B] px-4 py-3 sm:px-5 font-nav text-sm font-semibold text-white whitespace-nowrap hover:opacity-90 hover:scale-105 transition"
+        href="#"
+      >
+        {t('hero.ctaEtsy')}
+      </a>
+    </>
+  )
+
   return (
     <div className="relative overflow-visible ">
       <section className="relative flex-1 overflow-hidden rounded-3xl border border-[rgb(var(--border))]">
         <div className="grid  grid-cols-1  md:grid-cols-2">
           {/* LEFT */}
-          <div className="relative bg-[rgb(var(--hero-bg))] p-8 md:p-12">
+          <div className="relative bg-[rgb(var(--hero-bg))] p-8 pb-10 tablet:pb-12 md:p-12 md:pb-12 md:pr-40">
             {/* Hero title */}
             <div className="mt-4 grid grid-cols-[auto_1fr] items-start gap-x-4 gap-y-3 md:flex md:gap-6">
               <h1 className="font-hero text-5xl leading-[0.9] tracking-tight text-[#35B26B] md:text-7xl">
@@ -46,36 +64,37 @@ export default function Hero() {
             >
               {t('hero.subtitle')}
             </p>
-
-            {/* Logo centered (mobile/tablet in-flow) */}
-            <div className="pointer-events-none mt-6 flex justify-center md:hidden">
-              <div
-                className=" relative opacity-90
-                  h-32 w-32          /* base mobile */
-                  sm:h-28 sm:w-28    /* bigger phones */
-                  tablet:h-32 tablet:w-32
-                "
-              >
-                <LogoStampImage />
+            {/* CTA + Logo: mobile stacked, tablet row, md normal */}
+            <div className="mt-6 md:mt-8">
+              {/* Mobile: logo centered */}
+              <div className="pointer-events-none flex justify-center tablet:hidden md:hidden">
+                <div className="relative opacity-90 h-32 w-32 sm:h-34 sm:w-34">
+                  <LogoStampImage />
+                </div>
               </div>
-            </div>
 
-            {/* Buttons always on one row + centered */}
-            <div className="mt-6 flex justify-center gap-3 sm:gap-4 flex-nowrap">
-              <a
-                className=" rounded-xl bg-[#FF56C9] px-4 py-3 sm:px-5 font-nav text-sm font-semibold text-white whitespace-nowrap hover:opacity-90 hover:scale-105 transition
-                "
-                href="#"
-              >
-                {t('hero.ctaAmazon')}
-              </a>
+              {/* Tablet: buttons left + logo right (same row) */}
+              <div className="hidden tablet:flex md:hidden items-end justify-between gap-6">
+                <div className="flex flex-nowrap justify-start gap-3 sm:gap-4">
+                  {CTAButtons}
+                </div>
 
-              <a
-                className=" rounded-xl bg-[#35B26B] px-4 py-3 sm:px-5 font-nav text-sm font-semibold text-white whitespace-nowrap hover:opacity-90 hover:scale-105 transition"
-                href="#"
-              >
-                {t('hero.ctaEtsy')}
-              </a>
+                <div className="pointer-events-none shrink-0 opacity-90">
+                  <div className="relative h-28 w-28">
+                    <LogoStampImage />
+                  </div>
+                </div>
+              </div>
+
+              {/* Desktop (md+): buttons like you had */}
+              <div className="hidden md:flex flex-nowrap justify-start gap-3 sm:gap-4">
+                {CTAButtons}
+              </div>
+
+              {/* Mobile buttons (centered) */}
+              <div className="mt-6 flex flex-nowrap justify-center gap-3 sm:gap-4 tablet:hidden md:hidden">
+                {CTAButtons}
+              </div>
             </div>
 
             {/* Logo (absolute) — md+ */}
@@ -87,7 +106,7 @@ export default function Hero() {
           </div>
 
           {/* RIGHT (yellow + image) */}
-          <div className="relative bg-[#FFD400] w-full min-h-80 md:min-h-130">
+          <div className="relative bg-[#FFD400] w-full min-h-80 md:min-h-130 overflow-hidden">
             {/* character image */}
             <div className="relative mx-auto h-95 w-full max-w-205 md:h-130">
               <Image

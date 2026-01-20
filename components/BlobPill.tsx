@@ -9,8 +9,8 @@ export default function BlobPill({ children }: { children: ReactNode }) {
       className="
         relative inline-flex items-center justify-center
         min-w-[180px] sm:min-w-[240px] md:min-w-0
-        px-12 py-4 sm:px-12 sm:py-5 md:px-15 md:py-10
-        min-h-[98px] sm:min-h-[110px] md:min-h-[120px]
+        px-10 py-8 sm:px-12 sm:py-5 md:px-15 md:py-10
+        min-h-[102px] sm:min-h-[110px] md:min-h-[120px]
       "
     >
       <svg
