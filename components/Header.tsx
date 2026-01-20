@@ -76,7 +76,7 @@ export default function Header() {
 
   return (
     <header className="fixed inset-x-0 top-0 z-50 font-ui">
-      {debug && (
+      {/* {debug && (
         <div className="fixed bottom-4 left-4 z-[9999] rounded bg-black/80 px-3 py-2 text-xs text-white">
           scrolled: {String(scrolled)}
           <br />
@@ -90,7 +90,7 @@ export default function Header() {
           body:{' '}
           {typeof window !== 'undefined' ? document.body.scrollTop : 'ssr'}
         </div>
-      )}
+      )} */}
 
       {/* Glass background */}
       <div

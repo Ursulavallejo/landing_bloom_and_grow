@@ -25,10 +25,7 @@ export default function Hero() {
               </h1>
 
               {/* pill */}
-              <div
-                className=" uppercase tracking-wide justify-self-start sm:justify-self-end mt-6 sm:mt-2 md:mt-6 -translate-x-13 sm:translate-x-0 max-w-[240px] sm:max-w-none tablet:-translate-x-10
-    "
-              >
+              <div className="uppercase tracking-wide justify-self-start sm:justify-self-end mt-6 sm:mt-2 md:mt-6 -translate-x-13 sm:translate-x-0 max-w-[240px] sm:max-w-none tablet:-translate-x-10">
                 <BlobPill>
                   {pill.split('\n').map((line, i) => (
                     <span
@@ -42,33 +39,50 @@ export default function Hero() {
               </div>
             </div>
 
+            {/* Subtitle */}
             <p
               className="mt-6 max-w-full tablet:max-w-[410px] md:max-w-md
-              font-nav text-base leading-relaxed text-[rgb(var(--fg))]"
+                font-nav text-base leading-relaxed text-[rgb(var(--fg))]"
             >
               {t('hero.subtitle')}
             </p>
 
-            <div className="mt-8 flex flex-wrap gap-4">
+            {/* Logo centered (mobile/tablet in-flow) */}
+            <div className="pointer-events-none mt-6 flex justify-center md:hidden">
+              <div
+                className=" relative opacity-90
+                  h-32 w-32          /* base mobile */
+                  sm:h-28 sm:w-28    /* bigger phones */
+                  tablet:h-32 tablet:w-32
+                "
+              >
+                <LogoStampImage />
+              </div>
+            </div>
+
+            {/* Buttons always on one row + centered */}
+            <div className="mt-6 flex justify-center gap-3 sm:gap-4 flex-nowrap">
               <a
-                className="rounded-xl bg-[#FF56C9] px-5 py-3 font-nav text-sm font-semibold text-white hover:opacity-90 hover:scale-105 transition"
+                className=" rounded-xl bg-[#FF56C9] px-4 py-3 sm:px-5 font-nav text-sm font-semibold text-white whitespace-nowrap hover:opacity-90 hover:scale-105 transition
+                "
                 href="#"
               >
                 {t('hero.ctaAmazon')}
               </a>
 
               <a
-                className="rounded-xl bg-[#35B26B] px-5 py-3 font-nav text-sm font-semibold text-white hover:opacity-90 hover:scale-105 transition"
+                className=" rounded-xl bg-[#35B26B] px-4 py-3 sm:px-5 font-nav text-sm font-semibold text-white whitespace-nowrap hover:opacity-90 hover:scale-105 transition"
                 href="#"
               >
                 {t('hero.ctaEtsy')}
               </a>
             </div>
 
-            {/* logo stamp  */}
-            <div className="pointer-events-none absolute bottom-4 md:bottom-6 right-6 opacity-90">
-              <div className="relative   h-28 w-28 md:h-32 md:w-32 overflow-hidden  rounded-full " />
-              <LogoStampImage />
+            {/* Logo (absolute) — md+ */}
+            <div className="pointer-events-none absolute bottom-6 right-6 hidden md:block ">
+              <div className="relative h-32 w-32">
+                <LogoStampImage />
+              </div>
             </div>
           </div>
 
