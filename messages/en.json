@@ -14,5 +14,23 @@
   },
   "header": {
     "brand": "Bloom & Grow Lab"
+  },
+
+  "project": {
+    "title": "Our Project",
+    "lead": "Resources for emotional growth and education.",
+    "cardTitle": "Bloom & Grow: The Emotion Lab",
+    "p1": "Bloom & Grow was born from real conversations inside our own family — moments where explaining emotions, differences, or diagnoses felt overwhelming, and the right words were hard to find.",
+    "p2": "Together, we create digital books, stories, and printable tools that bring emotions to life in a calm, visual, and approachable way. Our resources are designed to support parents at home, teachers in the classroom, and children as they learn to understand themselves and others.",
+    "p3": "We know how challenging it can be to talk about big feelings or complex topics with children — especially when there are very few resources that feel both accessible and meaningful. Our mission is to fill that space with tools that make those conversations feel more natural, supportive, and human.",
+    "pageNote1": "* ADHD (Attention Deficit Hyperactivity Disorder).",
+    "pageNote2": "* ASD (Autism Spectrum Disorder).",
+    "tag1": "Stories & tools",
+    "tag2": "Emotional learning",
+    "tag3": "For families & teachers"
+  },
+
+  "about": {
+    "title": "About us"
   }
 }

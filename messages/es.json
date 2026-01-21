@@ -14,5 +14,21 @@
   },
   "header": {
     "brand": "Bloom & Grow Lab"
+  },
+  "project": {
+    "title": "Nuestro Proyecto",
+    "lead": "Recursos para el crecimiento y la educación emocional.",
+    "cardTitle": "Bloom & Grow: El Laboratorio de Emociones",
+    "p1": "Bloom & Grow nació a partir de conversaciones reales dentro de nuestra propia familia — momentos en los que explicar emociones, diferencias o diagnósticos resultaba abrumador y encontrar las palabras adecuadas no siempre era fácil.",
+    "p2": "Juntas creamos libros digitales, historias y materiales imprimibles que dan vida a las emociones de una forma visual, tranquila y cercana. Nuestros recursos están pensados para acompañar a familias en casa, docentes en el aula y niños en su proceso de aprender a comprenderse y conectar con los demás.",
+    "p3": "Sabemos lo complejo que puede ser hablar con niños sobre emociones intensas o temas difíciles, especialmente cuando existen muy pocos recursos que resulten realmente accesibles y significativos. Nuestro propósito es cubrir ese vacío con herramientas cuidadas que ayuden a que esas conversaciones fluyan de manera más natural y humana.",
+    "pageNote1": "* TDAH (Trastorno por Déficit de Atención e Hiperactividad). ",
+    "pageNote2": "* TEA (Trastorno del Espectro Autista).",
+    "tag1": "Historias y herramientas",
+    "tag2": "Educación emocional",
+    "tag3": "Para familias y docentes"
+  },
+  "about": {
+    "title": "About us"
   }
 }

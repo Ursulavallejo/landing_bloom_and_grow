@@ -1,6 +1,8 @@
+import OurProjectSection from '@/components/OurProjectSection'
 import Hero from '@/components/Hero'
 import Header from '@/components/Header'
 import BackgroundImage from '@/components/BackgroundImage'
+import AboutSection from '@/components/AboutSection'
 
 export default function Page() {
   return (
@@ -18,6 +20,15 @@ export default function Page() {
         />
         <Hero />
       </section>
+      {/* FULL BLEED wrapper */}
+      <section
+        id="project"
+        className="relative left-1/2 w-screen -translate-x-1/2"
+      >
+        <OurProjectSection />
+        {/* <AboutSection /> */}
+      </section>
+      <AboutSection />
     </main>
   )
 }

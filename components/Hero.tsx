@@ -16,14 +16,17 @@ export default function Hero() {
     <>
       <a
         className="rounded-xl bg-[#FF56C9] px-4 py-3 sm:px-5 font-nav text-sm font-semibold text-white whitespace-nowrap hover:opacity-90 hover:scale-105 transition"
-        href="#"
+        href=""
       >
         {t('hero.ctaAmazon')}
       </a>
 
       <a
+        aria-label="Visit Bloom & Grow Lab on Etsy (opens in a new tab)"
         className="rounded-xl bg-[#35B26B] px-4 py-3 sm:px-5 font-nav text-sm font-semibold text-white whitespace-nowrap hover:opacity-90 hover:scale-105 transition"
-        href="#"
+        target="_blank"
+        rel="noopener noreferrer"
+        href="https://www.etsy.com/shop/BloomAndGrowLab"
       >
         {t('hero.ctaEtsy')}
       </a>
@@ -35,7 +38,7 @@ export default function Hero() {
       <section className="relative flex-1 overflow-hidden rounded-3xl border border-[rgb(var(--border))]">
         <div className="grid  grid-cols-1  md:grid-cols-2">
           {/* LEFT */}
-          <div className="relative bg-[rgb(var(--hero-bg))] p-8 pb-10 tablet:pb-12 md:p-12 md:pb-12 md:pr-40">
+          <div className="relative bg-[rgb(var(--card))] p-8 pb-10 tablet:pb-12 md:p-12 md:pb-12 md:pr-40">
             {/* Hero title */}
             <div className="mt-4 grid grid-cols-[auto_1fr] items-start gap-x-4 gap-y-3 md:flex md:gap-6">
               <h1 className="font-hero text-5xl leading-[0.9] tracking-tight text-[#35B26B] md:text-7xl">
@@ -106,7 +109,7 @@ export default function Hero() {
           </div>
 
           {/* RIGHT (yellow + image) */}
-          <div className="relative bg-[#FFD400] w-full min-h-80 md:min-h-130 overflow-hidden">
+          <div className="relative bg-(--tint-1) w-full min-h-80 md:min-h-130 overflow-hidden">
             {/* character image */}
             <div className="relative mx-auto h-95 w-full max-w-205 md:h-130">
               <Image
