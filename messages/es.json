@@ -53,5 +53,68 @@
         "author": "Juan S."
       }
     ]
+  },
+  "books": {
+    "title": "Libros",
+    "subtitle": "Elige idioma y formato — Kindle, tapa blanda o pack digital.",
+    "cta": "Opciones de compra",
+    "hint": "Kindle + Tapa blanda en Amazon. Pack digital en Etsy.",
+    "close": "Cerrar",
+    "formats": {
+      "kindle": "Kindle",
+      "paperback": "Tapa blanda",
+      "etsy": "Pack digital"
+    },
+    "modal": {
+      "kicker": "Dónde comprar",
+      "subtitle": "Elige un formato. Los enlaces se abren en una pestaña nueva.",
+      "open": "Abrir enlace",
+      "footnote": "La disponibilidad puede variar según país/tienda.",
+      "options": {
+        "kindle": {
+          "title": "Amazon · Kindle",
+          "desc": "Lee al instante en Kindle y en el móvil."
+        },
+        "paperback": {
+          "title": "Amazon · Tapa blanda",
+          "desc": "Edición impresa enviada a tu casa."
+        },
+        "etsy": {
+          "title": "Etsy · Digital",
+          "desc": "Descarga en PDF + flipbook online de regalo."
+        }
+      }
+    },
+    "items": [
+      {
+        "titles": {
+          "en": "Time to Dream",
+          "es": "Tiempo de soñar",
+          "sv": "Dags att drömma"
+        },
+        "short": {
+          "en": "Tender bedtime stories to talk about feelings with calm and warmth.",
+          "es": "Historias tiernas para leer antes de dormir y hablar de emociones con calma.",
+          "sv": "Varma godnattsagor för att prata om känslor med lugn och närhet."
+        },
+        "links": {
+          "en": {
+            "amazonKindle": "PASTE_EN_KINDLE_LINK_HERE",
+            "amazonPaperback": "PASTE_EN_PAPERBACK_LINK_HERE",
+            "etsyDigital": "PASTE_EN_ETSY_LINK_HERE"
+          },
+          "es": {
+            "amazonKindle": "PASTE_ES_KINDLE_LINK_HERE",
+            "amazonPaperback": "PASTE_ES_PAPERBACK_LINK_HERE",
+            "etsyDigital": "PASTE_ES_ETSY_LINK_HERE"
+          },
+          "sv": {
+            "amazonKindle": "PASTE_SV_KINDLE_LINK_HERE",
+            "amazonPaperback": "PASTE_SV_PAPERBACK_LINK_HERE",
+            "etsyDigital": "PASTE_SV_ETSY_LINK_HERE"
+          }
+        }
+      }
+    ]
   }
 }

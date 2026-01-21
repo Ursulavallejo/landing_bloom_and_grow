@@ -5,23 +5,23 @@ import { useTranslations } from 'next-intl'
 
 type Review = { quote: string; author: string }
 
-function useInView<T extends HTMLElement>(options?: IntersectionObserverInit) {
-  const ref = useRef<T | null>(null)
-  const [inView, setInView] = useState(false)
+const STAGE_VH = 115
+const SPEED = 1.8
 
-  useEffect(() => {
-    const el = ref.current
-    if (!el) return
-
-    const obs = new IntersectionObserver(([entry]) => {
-      if (entry.isIntersecting) setInView(true)
-    }, options)
-
-    obs.observe(el)
-    return () => obs.disconnect()
-  }, [options])
-
-  return { ref, inView }
+function clamp(n: number, min: number, max: number) {
+  return Math.max(min, Math.min(max, n))
+}
+function invlerp(a: number, b: number, v: number) {
+  return (v - a) / (b - a)
+}
+function clamp01(n: number) {
+  return Math.max(0, Math.min(1, n))
+}
+function easeInOut(n: number) {
+  return n * n * (3 - 2 * n)
+}
+function ramp(v: number, start: number, end: number) {
+  return easeInOut(clamp01(invlerp(start, end, v)))
 }
 
 export default function ReviewsReveal({
@@ -43,78 +43,142 @@ export default function ReviewsReveal({
     [t],
   )
 
-  const { ref: ref1, inView: inView1 } = useInView<HTMLDivElement>({
-    threshold: 0.2,
-    rootMargin: '0px 0px -10% 0px',
-  })
+  const stageRef = useRef<HTMLDivElement | null>(null)
+  const [progress, setProgress] = useState(0)
 
-  const { ref: ref2, inView: inView2 } = useInView<HTMLDivElement>({
-    threshold: 0.2,
-    rootMargin: '0px 0px -10% 0px',
-  })
-
-  // Parallax súper suave para el segundo (solo cuando ya está en view)
-  const [y, setY] = useState(0)
+  // ✅ progreso 0..1 reversible basado en posición dentro del viewport
   useEffect(() => {
-    if (!inView2) return
+    let raf = 0
 
-    const onScroll = () => {
-      const el = ref2.current
-      if (!el) return
-      const r = el.getBoundingClientRect()
-      // rango pequeño para que sea sutil
-      const offset = Math.max(
-        -30,
-        Math.min(30, (r.top - window.innerHeight * 0.5) * 0.08),
-      )
-      setY(offset)
+    const tick = () => {
+      const el = stageRef.current
+      if (el) {
+        const r = el.getBoundingClientRect()
+        const centerY = window.innerHeight * 0.55
+
+        const total = r.height || 1
+        const traveled = centerY - r.top
+        const p = clamp((traveled / total) * SPEED, 0, 1)
+
+        setProgress(p)
+      }
+
+      raf = requestAnimationFrame(tick)
     }
 
-    onScroll()
-    window.addEventListener('scroll', onScroll, { passive: true })
-    return () => window.removeEventListener('scroll', onScroll)
-  }, [inView2, ref2])
+    raf = requestAnimationFrame(tick)
+    return () => cancelAnimationFrame(raf)
+  }, [])
+
+  // ✅ timing para que el Review 2 llegue a 100% antes
+  const OUT_START = 0.1
+  const OUT_END = 0.45
+  const IN_START = 0.42
+  const IN_END = 0.82
+
+  const o1 = 1 - ramp(progress, OUT_START, OUT_END)
+  const o2 = ramp(progress, IN_START, IN_END)
+
+  const y2 = (o2 - 0.5) * 14
 
   return (
-    <section className={`relative w-full py-4 sm:py-5 ${className}`}>
+    <section className={`relative w-full py-2 sm:py-4 ${className}`}>
       <div className="mx-auto max-w-5xl px-(--page-pad)">
+        {/* Mobile/Tablet title */}
         <h3
-          className={`text-center font-subtitle text-4xl sm:text-5xl text-[rgb(var(--fg))] ${titleClassName}`}
+          id="reviews-title"
+          className={`text-center font-subtitle text-4xl sm:text-5xl text-[rgb(var(--fg))] lg:hidden ${titleClassName}`}
         >
           {t('title')}
         </h3>
 
-        {/* Review 1 */}
-        <div
-          ref={ref1}
-          className={[
-            'mx-auto mt-10 sm:mt-14 max-w-3xl text-center',
-            'transition-all duration-700 ease-out',
-            inView1 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6',
-          ].join(' ')}
-        >
-          <QuoteBlock
-            quote={reviews[0].quote}
-            author={reviews[0].author}
-            quoteClassName={quoteClassName}
-          />
+        {/* Desktop sticky reveal */}
+        <div className="mt-10 hidden lg:block">
+          <div className="relative" style={{ height: `${STAGE_VH}vh` }}>
+            {/* stage con altura real */}
+            <div
+              ref={stageRef}
+              className="absolute left-0 right-0 top-0"
+              style={{ height: `${STAGE_VH}vh` }}
+            />
+
+            <div className="sticky top-20 z-10">
+              {/* ✅ más aire entre título y review */}
+              <div className="mb-10 sm:mb-12 text-center">
+                <h3
+                  className={`font-subtitle text-4xl sm:text-5xl text-[rgb(var(--fg))] ${titleClassName}`}
+                >
+                  {t('title')}
+                </h3>
+              </div>
+
+              <div className="relative mx-auto max-w-3xl text-center">
+                {/* Review 1 */}
+                <div
+                  className="absolute inset-0"
+                  style={{
+                    opacity: o1,
+                    transform: `translateY(${(1 - o1) * 10}px)`,
+                    transition:
+                      'opacity 220ms ease-out, transform 220ms ease-out',
+                    pointerEvents: o1 > 0.02 ? 'auto' : 'none',
+                  }}
+                >
+                  <QuoteBlock
+                    quote={reviews[0].quote}
+                    author={reviews[0].author}
+                    quoteClassName={quoteClassName}
+                  />
+                </div>
+
+                {/* Review 2 */}
+                <div
+                  className="absolute inset-0"
+                  style={{
+                    opacity: o2,
+                    transform: `translateY(${(-8 + y2).toFixed(2)}px)`,
+                    transition:
+                      'opacity 220ms ease-out, transform 220ms ease-out',
+                    pointerEvents: o2 > 0.02 ? 'auto' : 'none',
+                  }}
+                >
+                  <QuoteBlock
+                    quote={reviews[1].quote}
+                    author={reviews[1].author}
+                    quoteClassName={quoteClassName}
+                  />
+                </div>
+
+                {/* Spacer invisible para mantener altura */}
+                <div className="invisible pointer-events-none">
+                  <QuoteBlock
+                    quote={reviews[1].quote}
+                    author={reviews[1].author}
+                    quoteClassName={quoteClassName}
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
 
-        {/* Review 2 */}
-        <div
-          ref={ref2}
-          style={{ transform: inView2 ? `translateY(${y}px)` : undefined }}
-          className={[
-            'mx-auto mt-12 sm:mt-16 max-w-3xl text-center',
-            'transition-all duration-700 ease-out',
-            inView2 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8',
-          ].join(' ')}
-        >
-          <QuoteBlock
-            quote={reviews[1].quote}
-            author={reviews[1].author}
-            quoteClassName={quoteClassName}
-          />
+        {/* Mobile/Tablet: stack */}
+        <div className="lg:hidden">
+          <div className="mx-auto mt-10 max-w-3xl text-center">
+            <QuoteBlock
+              quote={reviews[0].quote}
+              author={reviews[0].author}
+              quoteClassName={quoteClassName}
+            />
+          </div>
+
+          <div className="mx-auto mt-12 max-w-3xl text-center">
+            <QuoteBlock
+              quote={reviews[1].quote}
+              author={reviews[1].author}
+              quoteClassName={quoteClassName}
+            />
+          </div>
         </div>
       </div>
     </section>
@@ -132,27 +196,26 @@ function QuoteBlock({
 }) {
   return (
     <figure className="relative">
-      {/* Comillas grandes decorativas */}
       <span
         aria-hidden="true"
-        className="pointer-events-none absolute -left-4 -top-6 select-none font-subtitle text-7xl leading-none text-[rgb(var(--fg))]/45 sm:-left-8 sm:-top-8 sm:text-8xl"
+        className="pointer-events-none absolute -left-4 -top-6 select-none font-subtitle text-7xl leading-none text-[rgb(var(--fg))]/60 sm:-left-8 sm:-top-8 sm:text-8xl"
       >
         “
       </span>
       <span
         aria-hidden="true"
-        className="pointer-events-none absolute -right-4 -bottom-10 select-none font-subtitle text-7xl leading-none text-[rgb(var(--fg))]/45 sm:-right-8 sm:-bottom-12 sm:text-8xl"
+        className="pointer-events-none absolute -right-4 -bottom-10 select-none font-subtitle text-7xl leading-none text-[rgb(var(--fg))]/60 sm:-right-8 sm:-bottom-12 sm:text-8xl"
       >
         ”
       </span>
 
       <blockquote
-        className={`whitespace-pre-line font-nav text-base leading-relaxed text-[rgb(var(--fg))]/85 sm:text-lg ${quoteClassName}`}
+        className={`whitespace-pre-line font-nav italic text-base leading-relaxed text-[rgb(var(--fg))]/95 sm:text-lg ${quoteClassName}`}
       >
         {quote}
       </blockquote>
 
-      <figcaption className="mt-4 font-nav text-sm font-semibold tracking-wide italic text-[rgb(var(--fg))]/70">
+      <figcaption className="mt-4 font-nav text-sm font-bold tracking-wide text-[rgb(var(--fg))]/90">
         — {author}
       </figcaption>
     </figure>

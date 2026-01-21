@@ -8,7 +8,7 @@ export default function AboutSection() {
   const t = useTranslations('about')
 
   return (
-    <section id="about" className="relative w-full py-16 sm:py-24">
+    <section className="relative w-full py-16 sm:py-24">
       {/* P5 background */}
       <P5Background
         className="z-0 [--p5-ink-rgb:30_41_59] dark:[--p5-ink-rgb:255_255_255]"
@@ -17,7 +17,10 @@ export default function AboutSection() {
 
       <div className="relative mx-auto max-w-6xl px-(--page-pad)">
         {/* Title */}
-        <h2 className="mb-12 text-center font-subtitle text-5xl sm:text-6xl text-[rgb(var(--fg))]">
+        <h2
+          id="about-title"
+          className="mb-12 text-center font-subtitle text-5xl sm:text-6xl text-[rgb(var(--fg))]"
+        >
           {t('title')}
         </h2>
 
