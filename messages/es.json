@@ -37,8 +37,21 @@
     },
     "person2": {
       "name": "Margarita Rosa",
-      "role": "Psicóloga y educadora en inteligencia emocional",
+      "role": "Psicóloga e inteligencia emocional",
       "text": "Psicóloga con muchos años de experiencia impartiendo seminarios de inteligencia emocional en el ámbito empresarial y como profesora universitaria. Su mirada profesional se une a su experiencia personal como madre y abuela, dando forma a herramientas emocionales prácticas, cercanas y profundamente humanas."
     }
+  },
+  "reviews": {
+    "title": "De nuestros lectores",
+    "items": [
+      {
+        "quote": "Felicitaciones, el libro me encantó. Su diseño y sus mensajes me parecieron muy especiales. Muchos éxitos; estaré atenta al próximo.",
+        "author": "Gladys U."
+      },
+      {
+        "quote": "Como papá de un niño de 9 años y una bebé de 8 meses, al leer Tiempo de soñar sentí algo muy especial: fue como volver por un momento a casa y a los valores con los que crecí, incluso estando lejos de nuestro país y de la gente que queremos.\n\nLas historias son sencillas, tiernas y profundamente humanas. Hablan de ser diferente, de equivocarse, de tener miedo y seguir adelante. Mi hijo se conectó con los personajes y las ilustraciones, y a mí me abrió la puerta para conversar con él sobre lo que sentimos y lo que extrañamos.\n\nEs un libro perfecto para leer abrazados antes de dormir y recordar que, estemos donde estemos, siempre podemos seguir soñando juntos.",
+        "author": "Juan S."
+      }
+    ]
   }
 }

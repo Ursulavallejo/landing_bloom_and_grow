@@ -39,8 +39,21 @@
     },
     "person2": {
       "name": "Margarita Rosa",
-      "role": "Psychologist and Emotional Intelligence Educator",
+      "role": "Psychologist &  Emotional Intelligence",
       "text": "A psychologist with many years of experience delivering emotional intelligence seminars in corporate settings and as a university professor. Her professional perspective is enriched by her personal experience as a mother and grandmother, shaping emotional tools that are practical, approachable, and deeply human."
     }
+  },
+  "reviews": {
+    "title": "From our readers",
+    "items": [
+      {
+        "quote": "Congratulations — I loved the book. The design and the messages felt truly special. Wishing you lots of success; I’ll be looking forward to the next one.",
+        "author": "Gladys U."
+      },
+      {
+        "quote": "As a dad of a 9-year-old and an 8-month-old baby, reading Time to Dream gave me a beautiful feeling — like returning home for a moment, to the values I grew up with, even while living far from our country and the people we love.\n\nThe stories are simple, tender, and deeply human. They speak about being different, making mistakes, feeling afraid, and moving forward anyway. My son connected with the characters and the illustrations, and it opened a door for us to talk about what we feel and what we miss.\n\nIt’s a perfect book to read while cuddling before bedtime — a gentle reminder that wherever we are, we can keep dreaming together.",
+        "author": "Juan S."
+      }
+    ]
   }
 }

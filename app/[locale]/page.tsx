@@ -1,3 +1,4 @@
+import ReviewsReveal from '@/components/ReviewsReveal'
 import OurProjectSection from '@/components/OurProjectSection'
 import Hero from '@/components/Hero'
 import Header from '@/components/Header'
@@ -29,6 +30,9 @@ export default function Page() {
         {/* <AboutSection /> */}
       </section>
       <AboutSection />
+      {/* Reviews entre About y Books */}
+      <ReviewsReveal quoteClassName="font-subtitle" />
+      {/* <BooksSection /> */}
     </main>
   )
 }
