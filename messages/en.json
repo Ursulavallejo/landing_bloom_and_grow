@@ -20,7 +20,7 @@
     "title": "Our Project",
     "lead": "Resources for emotional growth and education.",
     "cardTitle": "Bloom & Grow: The Emotion Lab",
-    "p1": "Bloom & Grow was born from real conversations inside our own family — moments where explaining emotions, differences, or diagnoses felt overwhelming, and the right words were hard to find.",
+    "p1": "Bloom & Grow was born from real conversations inside our own family — moments where explaining emotions, differences, or diagnoses felt overwhelming, and the right words were hard to find. One of us is a psychologist specialized in emotional intelligence, with years of experience leading seminars in professional and organizational settings. Her guidance became especially meaningful when her daughter faced the emotional challenges of raising two children diagnosed with ADHD and ASD.",
     "p2": "Together, we create digital books, stories, and printable tools that bring emotions to life in a calm, visual, and approachable way. Our resources are designed to support parents at home, teachers in the classroom, and children as they learn to understand themselves and others.",
     "p3": "We know how challenging it can be to talk about big feelings or complex topics with children — especially when there are very few resources that feel both accessible and meaningful. Our mission is to fill that space with tools that make those conversations feel more natural, supportive, and human.",
     "pageNote1": "* ADHD (Attention Deficit Hyperactivity Disorder).",
@@ -31,6 +31,16 @@
   },
 
   "about": {
-    "title": "About us"
+    "title": "About us",
+    "person1": {
+      "name": "Úrsula",
+      "role": "Creative & project lead",
+      "text": "I have always felt a deep connection to color, form, and storytelling. Bloom & Grow was born from this creative journey, from motherhood, and from the desire to transform art into a language that helps families talk about emotions with calm, sensitivity, and closeness. This project is also a way to connect generations, honor what has been learned, and create something that can accompany others on their own journey."
+    },
+    "person2": {
+      "name": "Margarita Rosa",
+      "role": "Psychologist and Emotional Intelligence Educator",
+      "text": "A psychologist with many years of experience delivering emotional intelligence seminars in corporate settings and as a university professor. Her professional perspective is enriched by her personal experience as a mother and grandmother, shaping emotional tools that are practical, approachable, and deeply human."
+    }
   }
 }
