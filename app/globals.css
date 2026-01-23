@@ -60,11 +60,11 @@ body {
   /* --hero-bg: 246 239 230; */
 
   /* Brand */
-  --primary: 16 185 129;
+  --primary: 16 185 129; /* green */
   --primary-foreground: 255 255 255;
 
   --accent-blue: #1e3a8a;
-  --accent-foreground: 255 255 255;
+  --accent-foreground: #ff56c9;
 
   /* Soft tints */
   --tint-1: #ffd400;
@@ -88,7 +88,7 @@ body {
   /* --hero-bg: 0 0 0; */
 
   --accent: 244 114 182;
-  --accent-foreground: 9 9 11;
+  --accent-foreground: #ff56c9;
 
   --tint-1: #ffd400; /* #ffd400 yellow */
   --tint-2: 131 24 67;

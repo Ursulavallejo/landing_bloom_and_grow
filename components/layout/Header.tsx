@@ -2,8 +2,8 @@
 
 import { useEffect, useState } from 'react'
 import { useTheme } from 'next-themes'
-import LanguageSwitcher from '@/components/LanguageSwitcher'
-import ThemeToggle from '@/components/ThemeToggle'
+import LanguageSwitcher from '@/components/ui/LanguageSwitcher'
+import ThemeToggle from '@/components/ui/ThemeToggle'
 import { useTranslations } from 'next-intl'
 import { Icons } from '@/icons'
 

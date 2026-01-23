@@ -1,10 +1,10 @@
-import ReviewsReveal from '@/components/ReviewsReveal'
-import OurProjectSection from '@/components/OurProjectSection'
-import Hero from '@/components/Hero'
-import Header from '@/components/Header'
-import BooksSection from '@/components/BooksSection'
-import BackgroundImage from '@/components/BackgroundImage'
-import AboutSection from '@/components/AboutSection'
+import ReviewsReveal from '@/components/sections/Reviews/ReviewsReveal'
+import OurProjectSection from '@/components/sections/Project/OurProjectSection'
+import Hero from '@/components/sections/Hero/Hero'
+import Header from '@/components/layout/Header'
+import BooksSection from '@/components/sections/Books/BooksSection'
+import BackgroundImage from '@/components/visuals/images/BackgroundImage'
+import AboutSection from '@/components/sections/About/AboutSection'
 
 export default function Page() {
   return (

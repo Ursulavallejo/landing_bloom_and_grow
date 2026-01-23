@@ -1,5 +1,5 @@
-import ThemeToggle from '@/components/ThemeToggle'
-import LanguageSwitcher from '@/components/LanguageSwitcher'
+import ThemeToggle from '@/components/ui/ThemeToggle'
+import LanguageSwitcher from '@/components/ui/LanguageSwitcher'
 import { useTranslations } from 'next-intl'
 import { playfair } from '@/app/fonts'
 

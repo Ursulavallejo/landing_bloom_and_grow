@@ -2,7 +2,7 @@
 
 import { useTranslations } from 'next-intl'
 import { Icons } from '@/icons'
-import P5Background from '@/components/P5BackgroundProject'
+import P5Background from '@/components/visuals/p5/P5BackgroundProject'
 
 export default function OurProjectSection() {
   const t = useTranslations()
@@ -12,7 +12,7 @@ export default function OurProjectSection() {
     <>
       <section className="relative w-full">
         {/* Full-width pink background */}
-        <div className="relative w-full bg-[#FF56C9] overflow-hidden">
+        <div className="relative w-full bg-[var(--accent-foreground)] overflow-hidden">
           {/* p5 background: at the back card */}
           <P5Background
             className="z-0 [--p5-ink-rgb:255_255_255] w-full"

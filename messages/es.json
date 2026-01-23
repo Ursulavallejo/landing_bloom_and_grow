@@ -99,19 +99,19 @@
         },
         "links": {
           "en": {
-            "amazonKindle": "PASTE_EN_KINDLE_LINK_HERE",
-            "amazonPaperback": "PASTE_EN_PAPERBACK_LINK_HERE",
-            "etsyDigital": "PASTE_EN_ETSY_LINK_HERE"
+            "amazonKindle": "https://a.co/d/1MRRzBE",
+            "amazonPaperback": "https://a.co/d/5htPjHu",
+            "etsyDigital": "https://www.etsy.com/se-en/listing/4383213182/time-to-dream-o-digital-childrens-book?ref=shop_home_feat_1&sr_prefetch=1&pf_from=shop_home&dd=1&logging_key=372c0616e7c65eb9b31dc5316d16f2d4e9250889%3A4383213182"
           },
           "es": {
-            "amazonKindle": "PASTE_ES_KINDLE_LINK_HERE",
-            "amazonPaperback": "PASTE_ES_PAPERBACK_LINK_HERE",
-            "etsyDigital": "PASTE_ES_ETSY_LINK_HERE"
+            "amazonKindle": "https://a.co/d/hIl6Ajw",
+            "amazonPaperback": "https://a.co/d/iu1ORYb",
+            "etsyDigital": "https://www.etsy.com/se-en/listing/4375257653/tiempo-de-sonar-o-cuento-infantil-sobre?ref=shop_home_feat_3&sr_prefetch=1&pf_from=shop_home&dd=1&logging_key=ba27ccabcd624616bfb451a96ba26b65fb542430%3A4375257653"
           },
           "sv": {
-            "amazonKindle": "PASTE_SV_KINDLE_LINK_HERE",
-            "amazonPaperback": "PASTE_SV_PAPERBACK_LINK_HERE",
-            "etsyDigital": "PASTE_SV_ETSY_LINK_HERE"
+            "amazonKindle": "https://a.co/d/bSuIccl",
+            "amazonPaperback": "https://a.co/d/e6uaKpB",
+            "etsyDigital": "https://www.etsy.com/se-en/listing/4383927841/dags-att-dromma-o-digital-barnbok-i-pdf?ref=shop_home_feat_2&sr_prefetch=1&pf_from=shop_home&dd=1&logging_key=1ef97d219a1c7871c7e3bd86bf7d49f448079810%3A4383927841"
           }
         }
       }

@@ -1,5 +1,5 @@
 import './globals.css'
-import Providers from '@/components/Providers'
+import Providers from '@/components/layout/Providers'
 import { ThemeColorMeta } from '@/app/themeColorMeta'
 import { barrio, caveat, quicksand, elite } from './fonts'
 

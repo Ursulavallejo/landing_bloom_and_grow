@@ -2,11 +2,11 @@
 
 import Image from 'next/image'
 import { useTranslations } from 'next-intl'
-import BlobPill from '@/components/BlobPill'
-import PinkBlobs from '@/components/PinkBlobs'
-import PinkWave from '@/components/PinkWave'
+import BlobPill from '@/components/visuals/decorations/BlobPill'
+import PinkBlobs from '@/components/visuals/decorations/PinkBlobs'
+import PinkWave from '@/components/visuals/decorations/PinkWave'
 // import CurvedTitle from '@/components/CurvedTitle'
-import LogoStampImage from '@/components/LogoStampImage'
+import LogoStampImage from '@/components/visuals/images/LogoStampImage'
 
 export default function Hero() {
   const t = useTranslations()
@@ -15,7 +15,7 @@ export default function Hero() {
   const CTAButtons = (
     <>
       <a
-        className="rounded-xl bg-[#FF56C9] px-4 py-3 sm:px-5 font-nav text-sm font-semibold text-white whitespace-nowrap hover:opacity-90 hover:scale-105 transition"
+        className="rounded-xl bg-[var(--accent-foreground)] px-4 py-3 sm:px-5 font-nav text-sm font-semibold text-white whitespace-nowrap hover:opacity-90 hover:scale-105 transition"
         href=""
       >
         {t('hero.ctaAmazon')}

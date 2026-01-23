@@ -1,6 +1,6 @@
 'use client'
 
-import P5Background from '@/components/P5BackgroundAbout'
+import P5Background from '@/components/visuals/p5/P5BackgroundAbout'
 import { useTranslations } from 'next-intl'
 import Image from 'next/image'
 
