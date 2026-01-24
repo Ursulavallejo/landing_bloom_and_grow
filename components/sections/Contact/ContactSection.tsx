@@ -1,11 +1,13 @@
 'use client'
 
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { useTranslations } from 'next-intl'
 
-type Field = 'name' | 'subject' | 'email' | 'message'
-type FieldErrors = Partial<Record<Field, string>>
-type Touched = Record<Field, boolean>
+type FieldName = 'name' | 'subject' | 'email' | 'message'
+type FieldErrors = Partial<Record<FieldName, string>>
+type Status = 'idle' | 'sending' | 'success' | 'error'
+
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
 export default function ContactSection() {
   const t = useTranslations('contact')
@@ -15,17 +17,11 @@ export default function ContactSection() {
   const [email, setEmail] = useState('')
   const [message, setMessage] = useState('')
 
-  const [touched, setTouched] = useState<Touched>({
-    name: false,
-    subject: false,
-    email: false,
-    message: false,
-  })
-
   const [errors, setErrors] = useState<FieldErrors>({})
-  const [status, setStatus] = useState<
-    'idle' | 'sending' | 'success' | 'error'
-  >('idle')
+  const [touched, setTouched] = useState<Partial<Record<FieldName, boolean>>>(
+    {},
+  )
+  const [status, setStatus] = useState<Status>('idle')
 
   const copy = useMemo(
     () => ({
@@ -42,47 +38,71 @@ export default function ContactSection() {
     [t],
   )
 
-  function isValidEmail(v: string) {
-    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)
-  }
+  // Auto-hide success/error message after a while
+  useEffect(() => {
+    if (status !== 'success' && status !== 'error') return
 
-  function validateField(field: Field, value: string) {
+    const ms = status === 'success' ? 5000 : 9000
+    const timer = window.setTimeout(() => setStatus('idle'), ms)
+
+    return () => window.clearTimeout(timer)
+  }, [status])
+
+  function validateField(field: FieldName, value: string): string | undefined {
     const v = value.trim()
-    let msg = ''
 
-    if (!v) msg = t('errors.required')
-
-    if (field === 'email' && v && !isValidEmail(v)) {
-      msg = t('errors.email')
+    if (field === 'name' || field === 'subject') {
+      if (!v) return t('errors.required')
+      return
     }
 
-    if (field === 'message' && v && v.length < 10) {
-      msg = t('errors.minMessage')
+    if (field === 'email') {
+      if (!v) return t('errors.required')
+      if (!EMAIL_RE.test(v)) return t('errors.email')
+      return
     }
 
-    setErrors((prev) => ({ ...prev, [field]: msg }))
-    return !msg
+    // message
+    if (!v) return t('errors.required')
+    if (v.length < 10) return t('errors.minMessage')
+    return
   }
 
-  function handleBlur(field: Field, value: string) {
-    setTouched((prev) => ({ ...prev, [field]: true }))
-    validateField(field, value)
+  function setFieldError(field: FieldName, msg?: string) {
+    setErrors((prev) => {
+      const next = { ...prev }
+      if (!msg) delete next[field]
+      else next[field] = msg
+      return next
+    })
   }
 
-  function validateAll() {
-    // mark all as touched so errors show if user just hits Send
+  function validateAll(): boolean {
+    const next: FieldErrors = {}
+    const nameErr = validateField('name', name)
+    const subjectErr = validateField('subject', subject)
+    const emailErr = validateField('email', email)
+    const messageErr = validateField('message', message)
+
+    if (nameErr) next.name = nameErr
+    if (subjectErr) next.subject = subjectErr
+    if (emailErr) next.email = emailErr
+    if (messageErr) next.message = messageErr
+
+    setErrors(next)
     setTouched({ name: true, subject: true, email: true, message: true })
+    return Object.keys(next).length === 0
+  }
 
-    const ok1 = validateField('name', name)
-    const ok2 = validateField('subject', subject)
-    const ok3 = validateField('email', email)
-    const ok4 = validateField('message', message)
-
-    return ok1 && ok2 && ok3 && ok4
+  function clearStatusIfNeeded() {
+    // If user interacts again, hide old success/error immediately
+    setStatus((s) => (s === 'success' || s === 'error' ? 'idle' : s))
   }
 
   async function onSubmit(e: React.FormEvent) {
     e.preventDefault()
+    clearStatusIfNeeded()
+
     if (!validateAll()) return
 
     setStatus('sending')
@@ -98,13 +118,14 @@ export default function ContactSection() {
 
       setStatus('success')
       setErrors({})
-      setTouched({ name: false, subject: false, email: false, message: false })
+      setTouched({})
       setName('')
       setSubject('')
       setEmail('')
       setMessage('')
     } catch {
       setStatus('error')
+      // Keep values so user can retry
     }
   }
 
@@ -139,10 +160,15 @@ export default function ContactSection() {
               value={name}
               placeholder={t('placeholders.name')}
               onChange={(v) => {
+                clearStatusIfNeeded()
                 setName(v)
-                if (touched.name) validateField('name', v)
+                if (touched.name)
+                  setFieldError('name', validateField('name', v))
               }}
-              onBlur={(v) => handleBlur('name', v)}
+              onBlur={() => {
+                setTouched((p) => ({ ...p, name: true }))
+                setFieldError('name', validateField('name', name))
+              }}
               error={touched.name ? errors.name : undefined}
               inputMode="text"
               autoComplete="name"
@@ -154,10 +180,15 @@ export default function ContactSection() {
                 value={subject}
                 placeholder={t('placeholders.subject')}
                 onChange={(v) => {
+                  clearStatusIfNeeded()
                   setSubject(v)
-                  if (touched.subject) validateField('subject', v)
+                  if (touched.subject)
+                    setFieldError('subject', validateField('subject', v))
                 }}
-                onBlur={(v) => handleBlur('subject', v)}
+                onBlur={() => {
+                  setTouched((p) => ({ ...p, subject: true }))
+                  setFieldError('subject', validateField('subject', subject))
+                }}
                 error={touched.subject ? errors.subject : undefined}
                 inputMode="text"
               />
@@ -169,10 +200,15 @@ export default function ContactSection() {
                 value={email}
                 placeholder={t('placeholders.email')}
                 onChange={(v) => {
+                  clearStatusIfNeeded()
                   setEmail(v)
-                  if (touched.email) validateField('email', v)
+                  if (touched.email)
+                    setFieldError('email', validateField('email', v))
                 }}
-                onBlur={(v) => handleBlur('email', v)}
+                onBlur={() => {
+                  setTouched((p) => ({ ...p, email: true }))
+                  setFieldError('email', validateField('email', email))
+                }}
                 error={touched.email ? errors.email : undefined}
                 inputMode="email"
                 autoComplete="email"
@@ -188,11 +224,16 @@ export default function ContactSection() {
                 <textarea
                   value={message}
                   onChange={(e) => {
+                    clearStatusIfNeeded()
                     const v = e.target.value
                     setMessage(v)
-                    if (touched.message) validateField('message', v)
+                    if (touched.message)
+                      setFieldError('message', validateField('message', v))
                   }}
-                  onBlur={(e) => handleBlur('message', e.target.value)}
+                  onBlur={() => {
+                    setTouched((p) => ({ ...p, message: true }))
+                    setFieldError('message', validateField('message', message))
+                  }}
                   placeholder={t('placeholders.message')}
                   rows={5}
                   className={[
@@ -204,7 +245,6 @@ export default function ContactSection() {
                       : 'border-[rgb(var(--border))] focus:border-[rgb(var(--fg))]/55',
                   ].join(' ')}
                 />
-
                 {touched.message && errors.message ? (
                   <p className="mt-2 font-nav text-xs text-red-500">
                     {errors.message}
@@ -258,7 +298,7 @@ function FieldLine({
   value: string
   placeholder: string
   onChange: (v: string) => void
-  onBlur: (v: string) => void
+  onBlur?: () => void
   error?: string
   inputMode?: React.HTMLAttributes<HTMLInputElement>['inputMode']
   autoComplete?: string
@@ -273,7 +313,7 @@ function FieldLine({
         <input
           value={value}
           onChange={(e) => onChange(e.target.value)}
-          onBlur={(e) => onBlur(e.target.value)}
+          onBlur={onBlur}
           placeholder={placeholder}
           inputMode={inputMode}
           autoComplete={autoComplete}
@@ -286,7 +326,6 @@ function FieldLine({
               : 'border-[rgb(var(--border))] focus:border-[rgb(var(--fg))]/55',
           ].join(' ')}
         />
-
         {error ? (
           <p className="mt-2 font-nav text-xs text-red-500">{error}</p>
         ) : null}

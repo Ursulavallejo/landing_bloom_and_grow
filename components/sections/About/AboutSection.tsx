@@ -41,7 +41,7 @@ export default function AboutSection() {
             name={t('person2.name')}
             role={t('person2.role')}
             text={t('person2.text')}
-            imgClassName="scale-[1.35] translate-y-3"
+            imgClassName="scale-[1.10] translate-y-3"
           />
         </div>
       </div>
