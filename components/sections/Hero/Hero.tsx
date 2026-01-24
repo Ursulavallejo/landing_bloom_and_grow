@@ -16,7 +16,8 @@ export default function Hero() {
     <>
       <a
         className="rounded-xl bg-[var(--accent-foreground)] px-4 py-3 sm:px-5 font-nav text-sm font-semibold text-white whitespace-nowrap hover:opacity-90 hover:scale-105 transition"
-        href=""
+        target="_blank"
+        href="https://www.amazon.com/stores/author/B0GFPK6X39?ingress=0&visitId=e6ba4566-5cf5-42b9-9849-3bc9b868e152&ref_=aufs_ap_ahdr_dsk_aa"
       >
         {t('hero.ctaAmazon')}
       </a>

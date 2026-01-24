@@ -1,9 +1,9 @@
 'use client'
 
-import { useEffect, useMemo, useRef, useState } from 'react'
-import { createPortal } from 'react-dom'
+import { useMemo, useRef, useState } from 'react'
 import Image from 'next/image'
 import { useTranslations } from 'next-intl'
+import { createPortal } from 'react-dom'
 
 type Lang = 'es' | 'en' | 'sv'
 type FormatKey = 'kindle' | 'paperback' | 'etsy'
@@ -83,64 +83,111 @@ export default function BooksSection() {
         : 'mt-10 sm:mt-14 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'
 
   return (
-    <section className="relative w-full py-16 sm:py-24">
-      <div className="absolute inset-0 -z-10 bg-(--tint-1)" />
+    <>
+      {/* Wave TOP: yellow*/}
+      <SoftYellowWaveTop className="block w-full -mb-px" />
 
-      <div className="pointer-events-none absolute left-0 right-0 top-0 h-10 bg-[rgb(var(--bg))] [clip-path:ellipse(75%_100%_at_50%_0%)] opacity-80" />
-      <div className="pointer-events-none absolute left-0 right-0 bottom-0 h-12 bg-[rgb(var(--bg))] [clip-path:ellipse(75%_100%_at_50%_100%)] opacity-80" />
+      {/* content */}
+      <section className="relative w-full bg-(--tint-1) py-5 sm:py-10">
+        <div className="relative mx-auto max-w-6xl px-(--page-pad)">
+          <h2
+            id="books-title"
+            className="text-center font-subtitle text-5xl text-[rgb(var(--fg))] sm:text-6xl"
+          >
+            {t('title')}
+          </h2>
 
-      <div className="relative mx-auto max-w-6xl px-(--page-pad)">
-        <h2
-          id="books-title"
-          className="text-center font-subtitle text-5xl text-[rgb(var(--fg))] sm:text-6xl"
-        >
-          {t('title')}
-        </h2>
+          <p className="mx-auto mt-4 max-w-2xl text-center font-nav text-sm text-[rgb(var(--fg))]/70 sm:text-base font-semibold">
+            {t('subtitle')}
+          </p>
 
-        <p className="mx-auto mt-4 max-w-2xl text-center font-nav text-sm text-[rgb(var(--fg))]/70 sm:text-base">
-          {t('subtitle')}
-        </p>
-
-        <div className={gridClassName}>
-          {books.map((b) => (
-            <div
-              key={b.id}
-              className={[
-                'w-full',
-                // Keep a comfortable card width on large screens so it does not blow up
-                // while still allowing 3 columns on lg and 4 columns on xl.
-                'max-w-[520px] sm:max-w-[520px] lg:max-w-[360px] xl:max-w-[320px]',
-              ].join(' ')}
-            >
-              <BookCard book={b} />
-            </div>
-          ))}
+          <div className={gridClassName}>
+            {books.map((b) => (
+              <div
+                key={b.id}
+                className={[
+                  'w-full',
+                  'max-w-[520px] sm:max-w-[520px] lg:max-w-[360px] xl:max-w-[320px]',
+                ].join(' ')}
+              >
+                <BookCard book={b} />
+              </div>
+            ))}
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
+
+      {/* Wave BOTTOM: yellow*/}
+      <SoftYellowWaveBottom className="block w-full -mt-px" />
+    </>
   )
 }
 
 /* -------------------------------------------- */
-/* BookCard                                     */
+/* Waves       */
+/* -------------------------------------------- */
+
+function SoftYellowWaveTop({ className = '' }: { className?: string }) {
+  return (
+    <svg
+      aria-hidden="true"
+      className={`pointer-events-none ${className} h-14 sm:h-16 `}
+      viewBox="0 0 1440 160"
+      preserveAspectRatio="none"
+    >
+      <path
+        fill="var(--tint-1)"
+        d="
+          M0,0
+          C120,20 240,40 360,36
+          C480,32 600,10 720,14
+          C840,18 960,48 1080,46
+          C1200,44 1320,24 1440,16
+          L1440,160 L0,160 Z
+        "
+      />
+    </svg>
+  )
+}
+
+function SoftYellowWaveBottom({ className = '' }: { className?: string }) {
+  return (
+    <svg
+      aria-hidden="true"
+      className={`pointer-events-none ${className} h-14 sm:h-16 -scale-y-100`}
+      viewBox="0 0 1440 160"
+      preserveAspectRatio="none"
+    >
+      <path
+        fill="var(--tint-1)"
+        d="
+          M0,0
+          C120,20 240,40 360,36
+          C480,32 600,10 720,14
+          C840,18 960,48 1080,46
+          C1200,44 1320,24 1440,16
+          L1440,160 L0,160 Z
+        "
+      />
+    </svg>
+  )
+}
+
+/* -------------------------------------------- */
+/* BookCard   */
 /* -------------------------------------------- */
 
 function BookCard({ book }: { book: Book }) {
   const t = useTranslations('books')
   const [lang, setLang] = useState<Lang>(book.defaultLang)
   const [open, setOpen] = useState(false)
-
-  // Stores the dialog top position in px (viewport coordinates)
   const [modalTop, setModalTop] = useState<number>(140)
-
-  // Stable ref for measuring the button position
   const buyBtnRef = useRef<HTMLButtonElement | null>(null)
 
   const links = book.buyLinksByLang[lang]
 
   function openModalNearButton() {
     const btn = buyBtnRef.current
-
     if (!btn) {
       setModalTop(140)
       setOpen(true)
@@ -148,15 +195,10 @@ function BookCard({ book }: { book: Book }) {
     }
 
     const rect = btn.getBoundingClientRect()
-
-    // Estimate modal height; the modal also has a max-height with internal scrolling
     const ESTIMATED_MODAL_H = 460
     const MARGIN = 24
-
-    // Center the modal around the button area (feels connected to the CTA)
     const desiredTop = rect.top + rect.height / 2 - ESTIMATED_MODAL_H / 2
 
-    // Clamp within viewport
     const minTop = MARGIN
     const maxTop = Math.max(
       MARGIN,
@@ -169,12 +211,7 @@ function BookCard({ book }: { book: Book }) {
 
   return (
     <>
-      <article
-        className="
-          rounded-3xl border border-[rgb(var(--border))]
-          bg-[rgb(var(--card))] p-6 shadow-sm sm:p-7
-        "
-      >
+      <article className="rounded-3xl border border-[rgb(var(--border))] bg-[rgb(var(--card))] p-6 shadow-sm sm:p-7">
         <div className="relative overflow-hidden rounded-2xl">
           <Image
             src={book.coverByLang[lang]}
@@ -210,12 +247,7 @@ function BookCard({ book }: { book: Book }) {
           {book.formats.map((f) => (
             <span
               key={f.key}
-              className="
-                rounded-full border border-[rgb(var(--border))]
-                bg-[rgb(var(--primary))]/20 px-3 py-1
-                font-nav text-[11px] uppercase tracking-wide
-                text-[rgb(var(--fg))]/70
-              "
+              className="rounded-full border border-[rgb(var(--border))] bg-[rgb(var(--primary))] px-3 py-1 font-nav text-[11px] uppercase tracking-wide text-[rgb(var(--bg))]"
             >
               {f.label}
             </span>
@@ -227,12 +259,7 @@ function BookCard({ book }: { book: Book }) {
             ref={buyBtnRef}
             type="button"
             onClick={openModalNearButton}
-            className="
-              rounded-full px-5 py-2
-              font-nav text-sm
-              bg-[var(--accent-foreground)] text-[rgb(var(--accent-contrast,255_255_255))]
-              transition hover:opacity-60 hover:scale-105
-            "
+            className="rounded-full px-5 py-2 font-nav text-sm bg-[var(--accent-foreground)] text-[rgb(var(--accent-contrast,255_255_255))] transition hover:opacity-60 hover:scale-105"
           >
             {t('cta')}
           </button>
@@ -281,10 +308,7 @@ function LangChip({
   )
 }
 
-/* -------------------------------------------- */
-/* Modal (Portal)                               */
-/* -------------------------------------------- */
-
+/* Modal  */
 function BuyOptionsModal({
   open,
   onClose,
@@ -305,36 +329,23 @@ function BuyOptionsModal({
   topPx: number
 }) {
   const t = useTranslations('books')
-  const [mounted, setMounted] = useState(false)
-
-  useEffect(() => {
-    setMounted(true)
-  }, [])
-
-  if (!open || !mounted) return null
+  const canUseDOM = typeof window !== 'undefined' && !!window.document?.body
+  if (!open || !canUseDOM) return null
 
   return createPortal(
     <div className="fixed inset-0 z-[90]">
-      {/* Full-viewport backdrop */}
       <button
         type="button"
         onClick={onClose}
         className="absolute inset-0 bg-black/55"
         aria-label={t('close')}
       />
-
-      {/* Dialog positioned near the trigger button */}
       <div
         className="absolute left-1/2 w-[min(92vw,780px)] -translate-x-1/2"
         style={{ top: topPx }}
       >
-        <div
-          className="
-            rounded-3xl border border-[rgb(var(--border))]
-            bg-[rgb(var(--card))] p-5 shadow-2xl sm:p-6
-            max-h-[calc(100vh-48px)] overflow-y-auto
-          "
-        >
+        <div className="rounded-3xl border border-[rgb(var(--border))] bg-[rgb(var(--card))] p-5 shadow-2xl sm:p-6 max-h-[calc(100vh-48px)] overflow-y-auto">
+          {/* content modal */}
           <div className="flex items-start justify-between gap-4">
             <div>
               <p className="font-nav text-xs uppercase tracking-wide text-[rgb(var(--fg))]/60">
@@ -351,13 +362,13 @@ function BuyOptionsModal({
             <button
               type="button"
               onClick={onClose}
-              className="rounded-full border border-[rgb(var(--border))] px-3 py-1 font-nav text-sm text-[rgb(var(--fg))]/80 hover:bg-[rgb(var(--bg))]/40"
+              className="rounded-full border border-[rgb(var(--border))] px-3 py-1 font-nav text-sm text-[rgb(var(--fg))]/80 hover:bg-[rgb(var(--bg))]/40 transition hover:opacity-70 hover:scale-105"
             >
               {t('close')}
             </button>
           </div>
 
-          <div className="mt-5 grid grid-cols-1 gap-3 sm:grid-cols-3">
+          <div className="mt-5 grid grid-cols-1 items-stretch gap-3 sm:grid-cols-3">
             <BuyOption
               title={t('modal.options.kindle.title')}
               desc={t('modal.options.kindle.desc')}
@@ -405,6 +416,7 @@ function BuyOption({
     <div
       className={[
         'rounded-2xl border border-[rgb(var(--border))] p-4',
+        'flex h-full flex-col',
         disabled ? 'opacity-50' : 'hover:bg-[rgb(var(--bg))]/30 transition',
       ].join(' ')}
     >
@@ -415,7 +427,7 @@ function BuyOption({
         {desc}
       </p>
 
-      <div className="mt-4">
+      <div className="mt-auto pt-4">
         <a
           href={href || '#'}
           target="_blank"
@@ -425,10 +437,10 @@ function BuyOption({
             if (disabled) e.preventDefault()
           }}
           className={[
-            'inline-flex items-center justify-center rounded-full px-4 py-2 font-nav text-sm',
+            'inline-flex items-center justify-center rounded-full px-4 py-2 font-nav text-sm transition hover:opacity-60 hover:scale-105',
             disabled
               ? 'border border-[rgb(var(--border))] text-[rgb(var(--fg))]/60'
-              : 'bg-[rgb(var(--fg))] text-[rgb(var(--bg))] hover:opacity-90 transition',
+              : 'bg-[rgb(var(--fg))] text-[rgb(var(--bg))] hover:opacity-90',
           ].join(' ')}
         >
           {cta}

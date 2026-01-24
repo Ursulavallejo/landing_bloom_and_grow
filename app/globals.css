@@ -81,7 +81,7 @@ body {
   --card: 0 0 0;
   --border: 63 63 70;
 
-  --primary: 52 211 153;
+  --primary: 16 185 129; /* green */
   --primary-foreground: 9 9 11;
   --icon-badge-bg: 255 255 255; /* white */
   --icon-badge-fg: 30 58 138; /* #1E3A8A */

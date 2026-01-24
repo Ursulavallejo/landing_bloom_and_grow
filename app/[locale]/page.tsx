@@ -38,7 +38,7 @@ export default function Page() {
 
       {/* REVIEWS */}
       <section aria-labelledby="reviews-title">
-        <ReviewsReveal quoteClassName="font-subtitle" />
+        <ReviewsReveal quoteClassName="font-subtitle " />
       </section>
 
       {/* BOOKS full-bleed */}

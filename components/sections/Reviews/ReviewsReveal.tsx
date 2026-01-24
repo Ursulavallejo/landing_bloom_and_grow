@@ -150,7 +150,7 @@ export default function ReviewsReveal({
                 </div>
 
                 {/* Spacer invisible para mantener altura */}
-                <div className="invisible pointer-events-none">
+                <div className="invisible pointer-events-none pb-16">
                   <QuoteBlock
                     quote={reviews[1].quote}
                     author={reviews[1].author}
@@ -172,7 +172,7 @@ export default function ReviewsReveal({
             />
           </div>
 
-          <div className="mx-auto mt-12 max-w-3xl text-center">
+          <div className="mx-auto mt-12 max-w-3xl text-center pb-8">
             <QuoteBlock
               quote={reviews[1].quote}
               author={reviews[1].author}
