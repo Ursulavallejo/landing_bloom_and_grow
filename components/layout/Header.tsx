@@ -2,20 +2,18 @@
 
 import { useEffect, useState } from 'react'
 import { useTheme } from 'next-themes'
-import LanguageSwitcher from '@/components/ui/LanguageSwitcher'
-import ThemeToggle from '@/components/ui/ThemeToggle'
 import { useTranslations } from 'next-intl'
-import { Icons } from '@/icons'
+
+import Navbar from '@/components/layout/Navbar'
+import { SocialLinks } from '@/components/layout/SocialLinks'
+import HeaderControls from '@/components/layout/HeaderControls'
 
 export default function Header() {
   const t = useTranslations()
   const { resolvedTheme } = useTheme()
-  const Ig = Icons.instagramIcon
-  const Fb = Icons.facebookIcon
 
   const [menuOpen, setMenuOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
-
   const [mounted, setMounted] = useState(false)
 
   useEffect(() => {
@@ -32,18 +30,11 @@ export default function Header() {
     if (!sentinel) return
 
     const observer = new IntersectionObserver(
-      ([entry]) => {
-        setScrolled(!entry.isIntersecting)
-      },
-      {
-        root: null, // viewport real
-        threshold: 0,
-        rootMargin: '-1px 0px 0px 0px',
-      },
+      ([entry]) => setScrolled(!entry.isIntersecting),
+      { root: null, threshold: 0, rootMargin: '-1px 0px 0px 0px' },
     )
 
     observer.observe(sentinel)
-
     return () => observer.disconnect()
   }, [])
 
@@ -81,30 +72,27 @@ export default function Header() {
       />
 
       <div className="relative mx-auto max-w-6xl px-6 py-4">
-        {/* MOBILE HEADER (1 row) */}
+        {/* MOBILE */}
         <div className="md:hidden">
           <div className="flex items-center justify-between">
-            {/* Brand */}
+            {/* Brand  */}
             <a
               href="#top"
               onClick={closeMenu}
-              className="font-brand font-semibold text-xl tracking-wide   leading-none text-[rgb(var(--fg))] hover:text-[rgb(var(--primary))] transition"
+              className="font-brand font-semibold text-xl tracking-wide leading-none text-[rgb(var(--fg))] hover:text-[rgb(var(--primary))] transition"
             >
               {t('header.brand')}
             </a>
 
-            {/* Controls */}
             <div className="flex items-center gap-2">
-              <LanguageSwitcher />
-              <ThemeToggle />
+              <HeaderControls />
 
-              {/* Hamburger */}
               <button
                 type="button"
                 onClick={() => setMenuOpen(true)}
                 aria-label="Open menu"
                 className={[
-                  'md:hidden inline-flex items-center justify-center p-2 text-[rgb(var(--fg))] hover:text-[rgb(var(--primary))] transition',
+                  'inline-flex items-center justify-center p-2 text-[rgb(var(--fg))] hover:text-[rgb(var(--primary))] transition',
                   menuOpen ? 'opacity-0 pointer-events-none' : 'opacity-100',
                 ].join(' ')}
               >
@@ -114,9 +102,8 @@ export default function Header() {
           </div>
         </div>
 
-        {/* DESKTOP HEADER (1 row) */}
+        {/* DESKTOP */}
         <div className="hidden md:flex items-center justify-between gap-6">
-          {/* Brand */}
           <a
             href="#top"
             className="font-brand text-2xl leading-none text-[rgb(var(--fg))] hover:text-[rgb(var(--primary))] transition"
@@ -124,73 +111,24 @@ export default function Header() {
             {t('header.brand')}
           </a>
 
-          {/* Nav */}
-          <nav className="flex items-center gap-8 text-sm font-semibold text-[rgb(var(--fg))]">
-            <a
-              href="#project"
-              className="hover:text-[rgb(var(--primary))] transition hover:scale-110"
-            >
-              {t('nav.project')}
-            </a>
-            <a
-              href="#about"
-              className="hover:text-[rgb(var(--primary))] transition hover:scale-110"
-            >
-              {t('nav.about')}
-            </a>
-            <a
-              href="#books"
-              className="hover:text-[rgb(var(--primary))] transition hover:scale-110"
-            >
-              {t('nav.books')}
-            </a>
-            <a
-              href="#contact"
-              className="hover:text-[rgb(var(--primary))] transition hover:scale-110"
-            >
-              {t('nav.contact')}
-            </a>
-          </nav>
+          <Navbar variant="desktop" />
 
-          {/* Right controls */}
           <div className="flex items-center gap-2">
-            <a
-              href="https://instagram.com/..."
-              aria-label="Instagram"
-              className="p-2 text-[rgb(var(--fg))] transition hover:text-[rgb(var(--primary))] hover:scale-125"
-            >
-              <Ig className="h-5 w-5" />
-            </a>
-
-            <a
-              href="https://facebook.com/..."
-              aria-label="Facebook"
-              className="p-2 text-[rgb(var(--fg))] transition hover:text-[rgb(var(--primary))] hover:scale-125"
-            >
-              <Fb className="h-5 w-5" />
-            </a>
-
-            <LanguageSwitcher />
-            <ThemeToggle />
+            <SocialLinks />
+            <HeaderControls />
           </div>
         </div>
       </div>
 
-      {/*  MOBILE FULLSCREEN MENU */}
+      {/* MOBILE FULLSCREEN MENU */}
       {menuOpen && (
         <div
           id="mobile-menu"
           role="dialog"
           aria-modal="true"
           aria-label="Mobile menu"
-          className={[
-            'md:hidden fixed inset-0 z-[60] transition-opacity duration-300',
-            menuOpen
-              ? 'opacity-100 pointer-events-auto'
-              : 'opacity-0 pointer-events-none',
-          ].join(' ')}
+          className="md:hidden fixed inset-0 z-[60]"
         >
-          {/* Overlay */}
           <div
             aria-hidden="true"
             onClick={closeMenu}
@@ -204,9 +142,7 @@ export default function Header() {
             ].join(' ')}
           />
 
-          {/* Panel */}
-          <div className="relative  w-full  px-6 pt-12 tablet:pt-24  pb-10">
-            {/* Close button */}
+          <div className="relative w-full px-6 pt-12 tablet:pt-24 pb-10">
             <button
               type="button"
               onClick={closeMenu}
@@ -216,36 +152,10 @@ export default function Header() {
               ×
             </button>
 
-            <nav className="space-y-6 text-3xl font-semibold text-[rgb(var(--fg))]">
-              <a href="#project" onClick={closeMenu} className="block">
-                {t('nav.project')}
-              </a>
-              <a href="#about" onClick={closeMenu} className="block">
-                {t('nav.about')}
-              </a>
-              <a href="#books" onClick={closeMenu} className="block">
-                {t('nav.books')}
-              </a>
-              <a href="#contact" onClick={closeMenu} className="block">
-                {t('nav.contact')}
-              </a>
-            </nav>
+            <Navbar variant="mobile" onNavigate={closeMenu} />
 
-            <div className="mt-12 flex items-center gap-6">
-              <a
-                href="https://instagram.com/..."
-                aria-label="Instagram"
-                className="text-[rgb(var(--fg))] transition hover:text-[rgb(var(--primary))] hover:scale-125"
-              >
-                <Ig className="h-7 w-7" />
-              </a>
-              <a
-                href="https://facebook.com/..."
-                aria-label="Facebook"
-                className="text-[rgb(var(--fg))] transition hover:text-[rgb(var(--primary))] hover:scale-125"
-              >
-                <Fb className="h-7 w-7" />
-              </a>
+            <div className="mt-12">
+              <SocialLinks size="lg" />
             </div>
           </div>
         </div>

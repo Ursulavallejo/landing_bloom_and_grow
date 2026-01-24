@@ -1,8 +1,9 @@
 'use client'
 
-import Link from 'next/link'
+// import Link from 'next/link'
 import Image from 'next/image'
 import { useTranslations } from 'next-intl'
+import { SocialLinks } from '@/components/layout/SocialLinks'
 
 export default function Footer() {
   const t = useTranslations('footer')
@@ -18,7 +19,7 @@ export default function Footer() {
           <div className="mx-auto max-w-2xl text-center">
             <div className="relative mx-auto mb-4 h-24 w-24 sm:h-28 sm:w-28">
               <Image
-                src="/logo_white_flordentro.png"
+                src="/logo_white_footer.png"
                 alt="logo bloom and grow: emotion lab"
                 fill
                 priority
@@ -41,7 +42,9 @@ export default function Footer() {
             </a>
 
             {/* Socials placeholder (replace later with your Socials component) */}
-            <div className="mt-6 flex justify-center">socials</div>
+            <div className="mt-6 flex justify-center">
+              <SocialLinks size="lg" hoverClassName="hover:text-white" />
+            </div>
           </div>
 
           {/* Bottom row */}
@@ -62,7 +65,7 @@ export default function Footer() {
               </p>
 
               <p className="font-nav text-xs text-[rgb(var(--fg))]/65">
-                Made with love in Göteborg ✨
+                {t('madeWith')}
               </p>
             </div>
           </div>
