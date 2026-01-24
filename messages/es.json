@@ -116,5 +116,28 @@
         }
       }
     ]
+  },
+  "contact": {
+    "title": "Nos encantará escucharte",
+    "subtitle": "Envíanos un mensaje y te responderemos lo antes posible.",
+    "line1": "Hola, mi nombre es",
+    "line2": "y me comunico sobre",
+    "line3": "Puedes contactarme en",
+    "line4": "Mensaje",
+    "button": "¡Enviar!",
+    "sending": "Enviando...",
+    "success": "¡Gracias! Tu mensaje fue enviado correctamente.",
+    "failure": "Ups… algo salió mal. Por favor intenta de nuevo.",
+    "placeholders": {
+      "name": "Escribe aquí",
+      "subject": "Asunto",
+      "email": "Tu email aquí",
+      "message": "Escribe tu mensaje aquí..."
+    },
+    "errors": {
+      "required": "Este campo es obligatorio.",
+      "email": "Por favor escribe un email válido.",
+      "minMessage": "Por favor escribe al menos 10 caracteres."
+    }
   }
 }

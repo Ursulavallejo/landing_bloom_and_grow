@@ -2,6 +2,7 @@ import ReviewsReveal from '@/components/sections/Reviews/ReviewsReveal'
 import OurProjectSection from '@/components/sections/Project/OurProjectSection'
 import Hero from '@/components/sections/Hero/Hero'
 import Header from '@/components/layout/Header'
+import ContactSection from '@/components/sections/Contact/ContactSection'
 import BooksSection from '@/components/sections/Books/BooksSection'
 import BackgroundImage from '@/components/visuals/images/BackgroundImage'
 import AboutSection from '@/components/sections/About/AboutSection'
@@ -48,6 +49,11 @@ export default function Page() {
         aria-labelledby="books-title"
       >
         <BooksSection />
+      </section>
+
+      {/* CONTACT */}
+      <section id="contact" aria-labelledby="contact-title">
+        <ContactSection />
       </section>
     </main>
   )
