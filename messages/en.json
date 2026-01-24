@@ -141,5 +141,9 @@
       "email": "Please enter a valid email.",
       "minMessage": "Please write at least 10 characters."
     }
+  },
+  "footer": {
+    "description": "Stories and creative tools to help children and families explore emotions with calm, warmth, and imagination.",
+    "madeWith": "Made with love in Göteborg - Sweden ✨"
   }
 }

@@ -139,5 +139,9 @@
       "email": "Por favor escribe un email válido.",
       "minMessage": "Por favor escribe al menos 10 caracteres."
     }
+  },
+  "footer": {
+    "description": "Historias y herramientas creativas para ayudar a niños y familias a explorar las emociones con calma, calidez e imaginación.",
+    "madeWith": "Hecho con amor en Gotemburgo - Suecia ✨"
   }
 }

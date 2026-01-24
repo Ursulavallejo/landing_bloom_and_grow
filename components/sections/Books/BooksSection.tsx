@@ -92,12 +92,12 @@ export default function BooksSection() {
         <div className="relative mx-auto max-w-6xl px-(--page-pad)">
           <h2
             id="books-title"
-            className="text-center font-subtitle text-5xl text-[rgb(var(--fg))] sm:text-6xl"
+            className="text-center font-subtitle text-5xl text-black sm:text-6xl"
           >
             {t('title')}
           </h2>
 
-          <p className="mx-auto mt-4 max-w-2xl text-center font-nav text-sm text-[rgb(var(--fg))]/70 sm:text-base font-semibold">
+          <p className="mx-auto mt-4 max-w-2xl text-center font-nav text-sm text-black sm:text-base font-semibold">
             {t('subtitle')}
           </p>
 

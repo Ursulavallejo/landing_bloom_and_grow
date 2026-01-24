@@ -130,8 +130,11 @@ export default function ContactSection() {
   }
 
   return (
-    <section id="contact" className="relative w-full py-16 sm:py-24">
-      <div className="absolute inset-0 -z-10 bg-transparent" />
+    <section
+      id="contact"
+      className="relative w-full pt-16 pb-24 sm:pt-24 sm:pb-34 "
+    >
+      <div className="absolute inset-0 -z-10 bg-transparent " />
 
       <div className="mx-auto max-w-6xl px-(--page-pad)">
         <header className="text-center">
