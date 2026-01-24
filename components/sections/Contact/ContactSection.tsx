@@ -265,7 +265,7 @@ function FieldLine({
 }) {
   return (
     <div>
-      <p className="font-subtitle text-2xl text-[rgb(var(--fg))] font-semibold sm:text-3xl">
+      <p className="font-subtitle text-2xl text-[rgb(var(--fg))]  sm:text-3xl">
         {label}
       </p>
 
