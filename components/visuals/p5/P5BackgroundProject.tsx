@@ -13,10 +13,9 @@ type Props = {
   glyphCount?: number
   bigGlyphCount?: number
 
-  // size control
-  particleRadius?: [number, number] // r min/max
-  glyphSize?: [number, number] // small glyph size min/max
-  bigGlyphSize?: [number, number] // big glyph size min/max
+  particleRadius?: [number, number]
+  glyphSize?: [number, number]
+  bigGlyphSize?: [number, number]
 }
 
 type Particle = { x: number; y: number; r: number; a: number; seed: number }
@@ -78,7 +77,16 @@ function P5BackgroundImpl({
     const onMove = (e: MouseEvent) => {
       mouseRef.current = { x: e.clientX, y: e.clientY }
     }
+
+    // parallax  touch
+    const onTouchMove = (e: TouchEvent) => {
+      const t = e.touches?.[0]
+      if (!t) return
+      mouseRef.current = { x: t.clientX, y: t.clientY }
+    }
+
     window.addEventListener('mousemove', onMove, { passive: true })
+    window.addEventListener('touchmove', onTouchMove, { passive: true })
 
     const run = async () => {
       const p5mod = await import('p5')
@@ -98,6 +106,12 @@ function P5BackgroundImpl({
         const glyphs: Glyph[] = []
         const bigGlyphs: Glyph[] = []
 
+        // “text presentation” on iOS (avoid emoji in color)
+        const TEXT_VARIANT = '\uFE0E'
+        const asTextGlyph = (ch: string) => {
+          return ch + TEXT_VARIANT
+        }
+
         const pickGlyph = () => {
           const pool = [
             '✿',
@@ -113,7 +127,8 @@ function P5BackgroundImpl({
             '⋆',
             '☁',
           ]
-          return pool[Math.floor(Math.random() * pool.length)]
+          const ch = pool[Math.floor(Math.random() * pool.length)]
+          return asTextGlyph(ch)
         }
 
         const readInkFromCSS = () => {
@@ -215,7 +230,6 @@ function P5BackgroundImpl({
 
           p.noStroke()
           fillInk(BASE_ALPHA * g.a)
-
           p.textAlign(p.CENTER, p.CENTER)
           p.textSize(g.s * scale)
           p.text(g.ch, 0, 0)
@@ -225,7 +239,9 @@ function P5BackgroundImpl({
 
         p.setup = () => {
           p.createCanvas(1, 1)
-          p.pixelDensity(Math.min(2, window.devicePixelRatio || 1))
+
+          p.pixelDensity(1)
+
           p.frameRate(reduceMotion ? 1 : 30)
           readInkFromCSS()
           resizeToHost()
@@ -273,9 +289,7 @@ function P5BackgroundImpl({
     const ro = new ResizeObserver(() => {
       try {
         p5InstanceRef.current?.windowResized?.()
-      } catch {
-        // ignore
-      }
+      } catch {}
     })
     if (hostRef.current) ro.observe(hostRef.current)
 
@@ -284,11 +298,10 @@ function P5BackgroundImpl({
       ro.disconnect()
       mq.removeEventListener?.('change', onMQ)
       window.removeEventListener('mousemove', onMove)
+      window.removeEventListener('touchmove', onTouchMove)
       try {
         p5InstanceRef.current?.remove?.()
-      } catch {
-        // ignore
-      }
+      } catch {}
       p5InstanceRef.current = null
     }
   }, [

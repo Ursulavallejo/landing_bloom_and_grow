@@ -75,7 +75,7 @@ export default function OurProjectSection() {
               as="div"
               className="mt-10 flex justify-center"
               direction="up"
-              delay={0.4}
+              delay={0.3}
               duration={0.6}
             >
               <article
