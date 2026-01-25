@@ -14,15 +14,37 @@ export default function OurProjectSection() {
         {/* Full-width pink background */}
         <div className="relative w-full bg-[var(--accent-foreground)] overflow-hidden">
           {/* p5 background: at the back card */}
-          <P5Background
-            className="z-0 [--p5-ink-rgb:255_255_255] w-full"
-            opacity={0.82}
-            motion={1.8}
-            parallax={1.2}
-            particleCount={180}
-            glyphCount={38}
-            bigGlyphCount={6}
-          />
+
+          {/* Mobile: fewer + bigger */}
+          <div className="sm:hidden">
+            <P5Background
+              className="z-0 [--p5-ink-rgb:255_255_255] w-full"
+              opacity={0.92}
+              motion={2.2}
+              parallax={0.6}
+              particleCount={70}
+              glyphCount={14}
+              bigGlyphCount={10}
+              particleRadius={[2.2, 5.2]}
+              glyphSize={[26, 44]}
+              bigGlyphSize={[64, 108]}
+            />
+          </div>
+          {/* Desktop/tablet: your current */}
+          <div className="hidden sm:block">
+            <P5Background
+              className="z-0 [--p5-ink-rgb:255_255_255] w-full"
+              opacity={0.82}
+              motion={1.8}
+              parallax={1.2}
+              particleCount={180}
+              glyphCount={38}
+              bigGlyphCount={6}
+              particleRadius={[1.2, 3.4]}
+              glyphSize={[16, 34]}
+              bigGlyphSize={[54, 98]}
+            />
+          </div>
           <div className="relative z-10 mx-auto max-w-6xl px-(--page-pad) pt-16 sm:pt-20 pb-14 ">
             {/* Title */}
             <header className="text-center">

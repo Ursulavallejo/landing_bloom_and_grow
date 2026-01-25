@@ -1,6 +1,6 @@
 'use client'
 
-import P5Background from '@/components/visuals/p5/P5BackgroundAbout'
+// import P5Background from '@/components/visuals/p5/P5BackgroundAbout'
 import { useTranslations } from 'next-intl'
 import Image from 'next/image'
 
@@ -10,10 +10,10 @@ export default function AboutSection() {
   return (
     <section className="relative w-full py-16 sm:py-24">
       {/* P5 background */}
-      <P5Background
+      {/* <P5Background
         className="z-0 [--p5-ink-rgb:30_41_59] dark:[--p5-ink-rgb:255_255_255]"
         opacity={1.2}
-      />
+      /> */}
 
       <div className="relative mx-auto max-w-6xl px-(--page-pad)">
         {/* Title */}

@@ -12,6 +12,11 @@ type Props = {
   particleCount?: number
   glyphCount?: number
   bigGlyphCount?: number
+
+  // size control
+  particleRadius?: [number, number] // r min/max
+  glyphSize?: [number, number] // small glyph size min/max
+  bigGlyphSize?: [number, number] // big glyph size min/max
 }
 
 type Particle = { x: number; y: number; r: number; a: number; seed: number }
@@ -46,6 +51,9 @@ function P5BackgroundImpl({
   particleCount = 170,
   glyphCount = 34,
   bigGlyphCount = 6,
+  particleRadius = [1.2, 3.4],
+  glyphSize = [16, 34],
+  bigGlyphSize = [54, 98],
 }: Props) {
   const hostRef = useRef<HTMLDivElement | null>(null)
   const p5InstanceRef = useRef<p5 | null>(null)
@@ -91,7 +99,6 @@ function P5BackgroundImpl({
         const bigGlyphs: Glyph[] = []
 
         const pickGlyph = () => {
-          // puedes ajustar el “mix” aquí
           const pool = [
             '✿',
             '❀',
@@ -145,8 +152,7 @@ function P5BackgroundImpl({
             particles.push({
               x: p.random(0, w),
               y: p.random(0, h),
-              r: p.random(1.2, 3.4),
-              // subo un poco el rango para que NO te toque poner opacity=1
+              r: p.random(particleRadius[0], particleRadius[1]),
               a: p.random(0.12, 0.32),
               seed: p.random(1000),
             })
@@ -156,7 +162,7 @@ function P5BackgroundImpl({
             glyphs.push({
               x: p.random(w * 0.06, w * 0.94),
               y: p.random(h * 0.08, h * 0.92),
-              s: p.random(16, 34),
+              s: p.random(glyphSize[0], glyphSize[1]),
               a: p.random(0.14, 0.34),
               ch: pickGlyph(),
               seed: p.random(1000),
@@ -167,7 +173,7 @@ function P5BackgroundImpl({
             bigGlyphs.push({
               x: p.random(w * 0.1, w * 0.9),
               y: p.random(h * 0.18, h * 0.86),
-              s: p.random(54, 98),
+              s: p.random(bigGlyphSize[0], bigGlyphSize[1]),
               a: p.random(0.16, 0.38),
               ch: pickGlyph(),
               seed: p.random(1000),
@@ -177,15 +183,12 @@ function P5BackgroundImpl({
 
         const drawParticles = (t: number) => {
           p.noStroke()
-
-          // velocidad base del drift (antes era muy baja)
           const speed = reduceMotion ? 0 : 0.22 * MOTION
 
           for (const pt of particles) {
             const nx = p.noise(pt.seed + t * speed)
             const ny = p.noise(pt.seed + 99 + t * speed)
 
-            // amplitud drift
             pt.x += (nx - 0.5) * 1.6 * MOTION
             pt.y += (ny - 0.5) * 1.6 * MOTION
 
@@ -203,7 +206,6 @@ function P5BackgroundImpl({
           p.push()
 
           const drift = reduceMotion ? 0 : 1
-          // float más notable
           const floatY = p.sin(t * (0.75 * MOTION) + g.seed) * 7 * drift
           const floatX = p.cos(t * (0.65 * MOTION) + g.seed) * 6 * drift
           const rot = p.sin(t * (0.25 * MOTION) + g.seed) * 0.06 * drift
@@ -232,10 +234,8 @@ function P5BackgroundImpl({
 
         p.draw = () => {
           p.clear()
-
           const t = reduceMotion ? 0 : p.millis() / 1000
 
-          // parallax SOLO mouse (sin scroll)
           const r = rectRef.current
           const m = mouseRef.current
           const localX = m.x - r.left
@@ -291,7 +291,17 @@ function P5BackgroundImpl({
       }
       p5InstanceRef.current = null
     }
-  }, [opacity, motion, parallax, particleCount, glyphCount, bigGlyphCount])
+  }, [
+    opacity,
+    motion,
+    parallax,
+    particleCount,
+    glyphCount,
+    bigGlyphCount,
+    particleRadius,
+    glyphSize,
+    bigGlyphSize,
+  ])
 
   return (
     <div
