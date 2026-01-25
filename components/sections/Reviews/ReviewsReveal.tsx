@@ -80,6 +80,9 @@ export default function ReviewsReveal({
   const o2 = ramp(progress, IN_START, IN_END)
 
   const y2 = (o2 - 0.5) * 14
+  useEffect(() => {
+    console.log('progress', progress)
+  }, [progress])
 
   return (
     <section className={`relative w-full py-2 sm:py-4 ${className}`}>

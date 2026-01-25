@@ -84,7 +84,7 @@ export default function BooksSection() {
 
   return (
     <>
-      {/* Wave TOP: yellow*/}
+      {/* Wave TOP: yellow */}
       <SoftYellowWaveTop className="block w-full -mb-px" />
 
       {/* content */}
@@ -117,21 +117,21 @@ export default function BooksSection() {
         </div>
       </section>
 
-      {/* Wave BOTTOM: yellow*/}
+      {/* Wave BOTTOM: yellow */}
       <SoftYellowWaveBottom className="block w-full -mt-px" />
     </>
   )
 }
 
 /* -------------------------------------------- */
-/* Waves       */
+/* Waves */
 /* -------------------------------------------- */
 
 function SoftYellowWaveTop({ className = '' }: { className?: string }) {
   return (
     <svg
       aria-hidden="true"
-      className={`pointer-events-none ${className} h-14 sm:h-16 `}
+      className={`pointer-events-none ${className} h-14 sm:h-16`}
       viewBox="0 0 1440 160"
       preserveAspectRatio="none"
     >
@@ -174,7 +174,7 @@ function SoftYellowWaveBottom({ className = '' }: { className?: string }) {
 }
 
 /* -------------------------------------------- */
-/* BookCard   */
+/* BookCard */
 /* -------------------------------------------- */
 
 function BookCard({ book }: { book: Book }) {
@@ -308,7 +308,10 @@ function LangChip({
   )
 }
 
-/* Modal  */
+/* -------------------------------------------- */
+/* Modal */
+/* -------------------------------------------- */
+
 function BuyOptionsModal({
   open,
   onClose,
@@ -329,19 +332,43 @@ function BuyOptionsModal({
   topPx: number
 }) {
   const t = useTranslations('books')
+  const [isMobile, setIsMobile] = useState(false)
 
+  // Detect mobile (Tailwind sm breakpoint: 640px)
+  useEffect(() => {
+    const mq = window.matchMedia('(max-width: 639px)')
+    const update = () => setIsMobile(mq.matches)
+    update()
+    mq.addEventListener?.('change', update)
+    return () => mq.removeEventListener?.('change', update)
+  }, [])
+
+  // Lock background scroll while modal is open (iOS-safe, restores scroll position on close)
   useEffect(() => {
     if (!open) return
 
-    const originalOverflow = document.body.style.overflow
-    const originalOverscroll = document.body.style.overscrollBehavior
+    const scrollY = window.scrollY
+    const original = {
+      overflow: document.body.style.overflow,
+      overscroll: document.body.style.overscrollBehavior,
+      position: document.body.style.position,
+      top: document.body.style.top,
+      width: document.body.style.width,
+    }
 
     document.body.style.overflow = 'hidden'
     document.body.style.overscrollBehavior = 'none'
+    document.body.style.position = 'fixed'
+    document.body.style.top = `-${scrollY}px`
+    document.body.style.width = '100%'
 
     return () => {
-      document.body.style.overflow = originalOverflow
-      document.body.style.overscrollBehavior = originalOverscroll
+      document.body.style.overflow = original.overflow
+      document.body.style.overscrollBehavior = original.overscroll
+      document.body.style.position = original.position
+      document.body.style.top = original.top
+      document.body.style.width = original.width
+      window.scrollTo(0, scrollY)
     }
   }, [open])
 
@@ -350,64 +377,95 @@ function BuyOptionsModal({
 
   return createPortal(
     <div className="fixed inset-0 z-[90]">
+      {/* Backdrop */}
       <button
         type="button"
         onClick={onClose}
         className="absolute inset-0 bg-black/55"
         aria-label={t('close')}
       />
+
+      {/* Positioning wrapper
+          - Mobile: fullscreen (no topPx)
+          - sm+: keep the near-button positioning using topPx
+      */}
       <div
-        className="absolute left-1/2 w-[min(92vw,780px)] -translate-x-1/2 top-6 sm:top-auto"
-        style={{ top: topPx }}
+        className={[
+          'absolute z-[91]',
+          // Mobile fullscreen
+          'inset-0',
+          // Desktop: centered + width + translate
+          'sm:inset-auto sm:left-1/2 sm:w-[min(92vw,780px)] sm:-translate-x-1/2',
+        ].join(' ')}
+        style={!isMobile ? { top: topPx } : undefined}
       >
-        <div className="rounded-3xl border border-[rgb(var(--border))] bg-[rgb(var(--card))] p-5 shadow-2xl sm:p-6 max-h-[calc(100vh-48px)] overflow-y-auto overscroll-contain touch-pan-y [ -webkit-overflow-scrolling: touch ]">
-          {/* content modal */}
-          <div className="flex items-start justify-between gap-4">
-            <div>
-              <p className="font-nav text-xs uppercase tracking-wide text-[rgb(var(--fg))]/60">
-                {t('modal.kicker')} · {langLabel}
-              </p>
-              <h4 className="mt-1 font-subtitle text-xl text-[rgb(var(--fg))] sm:text-2xl">
-                {title}
-              </h4>
-              <p className="mt-2 font-nav text-sm text-[rgb(var(--fg))]/70">
-                {t('modal.subtitle')}
-              </p>
+        {/* Panel
+            - Mobile: full height
+            - sm+: max-height with internal scroll
+        */}
+        <div
+          className={[
+            'w-full bg-[rgb(var(--card))] border border-[rgb(var(--border))] shadow-2xl',
+            // Mobile fullscreen
+            'h-[100dvh] rounded-none',
+            // Desktop
+            'sm:h-auto sm:rounded-3xl sm:max-h-[calc(100vh-48px)]',
+            // Critical: enable proper internal scrolling
+            'flex flex-col min-h-0',
+          ].join(' ')}
+        >
+          {/* Header (non-scroll area) */}
+          <div className="p-5 sm:p-6">
+            <div className="flex items-start justify-between gap-4">
+              <div>
+                <p className="font-nav text-xs uppercase tracking-wide text-[rgb(var(--fg))]/60">
+                  {t('modal.kicker')} · {langLabel}
+                </p>
+                <h4 className="mt-1 font-subtitle text-xl text-[rgb(var(--fg))] sm:text-2xl">
+                  {title}
+                </h4>
+                <p className="mt-2 font-nav text-sm text-[rgb(var(--fg))]/70">
+                  {t('modal.subtitle')}
+                </p>
+              </div>
+
+              <button
+                type="button"
+                onClick={onClose}
+                className="rounded-full border border-[rgb(var(--border))] px-3 py-1 font-nav text-sm text-[rgb(var(--fg))]/80 hover:bg-[rgb(var(--bg))]/40 transition hover:opacity-70 hover:scale-105"
+              >
+                {t('close')}
+              </button>
+            </div>
+          </div>
+
+          {/* Scrollable content area */}
+          <div className="px-5 pb-6 sm:px-6 overflow-y-auto overscroll-contain min-h-0 [-webkit-overflow-scrolling:touch]">
+            <div className="mt-2 grid grid-cols-1 items-stretch gap-3 sm:grid-cols-3">
+              <BuyOption
+                title={t('modal.options.kindle.title')}
+                desc={t('modal.options.kindle.desc')}
+                href={links.amazonKindle}
+                cta={t('modal.open')}
+              />
+              <BuyOption
+                title={t('modal.options.paperback.title')}
+                desc={t('modal.options.paperback.desc')}
+                href={links.amazonPaperback}
+                cta={t('modal.open')}
+              />
+              <BuyOption
+                title={t('modal.options.etsy.title')}
+                desc={t('modal.options.etsy.desc')}
+                href={links.etsyDigital}
+                cta={t('modal.open')}
+              />
             </div>
 
-            <button
-              type="button"
-              onClick={onClose}
-              className="rounded-full border border-[rgb(var(--border))] px-3 py-1 font-nav text-sm text-[rgb(var(--fg))]/80 hover:bg-[rgb(var(--bg))]/40 transition hover:opacity-70 hover:scale-105"
-            >
-              {t('close')}
-            </button>
+            <p className="mt-4 font-nav text-xs text-[rgb(var(--fg))]/55">
+              {t('modal.footnote')}
+            </p>
           </div>
-
-          <div className="mt-5 grid grid-cols-1 items-stretch gap-3 sm:grid-cols-3">
-            <BuyOption
-              title={t('modal.options.kindle.title')}
-              desc={t('modal.options.kindle.desc')}
-              href={links.amazonKindle}
-              cta={t('modal.open')}
-            />
-            <BuyOption
-              title={t('modal.options.paperback.title')}
-              desc={t('modal.options.paperback.desc')}
-              href={links.amazonPaperback}
-              cta={t('modal.open')}
-            />
-            <BuyOption
-              title={t('modal.options.etsy.title')}
-              desc={t('modal.options.etsy.desc')}
-              href={links.etsyDigital}
-              cta={t('modal.open')}
-            />
-          </div>
-
-          <p className="mt-4 font-nav text-xs text-[rgb(var(--fg))]/55">
-            {t('modal.footnote')}
-          </p>
         </div>
       </div>
     </div>,
