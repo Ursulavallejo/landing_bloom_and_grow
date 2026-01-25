@@ -7,6 +7,7 @@ import PinkBlobs from '@/components/visuals/decorations/PinkBlobs'
 import PinkWave from '@/components/visuals/decorations/PinkWave'
 // import CurvedTitle from '@/components/CurvedTitle'
 import LogoStampImage from '@/components/visuals/images/LogoStampImage'
+import { MotionFade } from '@/components/visuals/motion/MotionFade'
 
 export default function Hero() {
   const t = useTranslations()
@@ -42,12 +43,23 @@ export default function Hero() {
           <div className="relative bg-[rgb(var(--card))] p-8 pb-10 tablet:pb-12 md:p-12 md:pb-12 md:pr-40">
             {/* Hero title */}
             <div className="mt-4 grid grid-cols-[auto_1fr] items-start gap-x-4 gap-y-3 md:flex md:gap-6">
-              <h1 className="font-hero text-5xl leading-[0.9] tracking-tight text-[#35B26B] md:text-7xl">
+              <MotionFade
+                as="h1"
+                className="font-hero text-5xl leading-[0.9] tracking-tight text-[#35B26B] md:text-7xl"
+                direction="down"
+                delay={0.2}
+                duration={0.6}
+              >
                 BLOOM <br /> &amp; GROW
-              </h1>
-
+              </MotionFade>
               {/* pill */}
-              <div className="uppercase tracking-wide justify-self-start sm:justify-self-end mt-6 sm:mt-2 md:mt-6 -translate-x-13 sm:translate-x-0 max-w-[240px] sm:max-w-none tablet:-translate-x-10">
+              <MotionFade
+                as="div"
+                className="uppercase tracking-wide justify-self-start sm:justify-self-end mt-6 sm:mt-2 md:mt-6 -translate-x-13 sm:translate-x-0 max-w-[240px] sm:max-w-none tablet:-translate-x-10"
+                direction="up"
+                duration={0.6}
+                delay={0.4}
+              >
                 <BlobPill>
                   {pill.split('\n').map((line, i) => (
                     <span
@@ -58,61 +70,106 @@ export default function Hero() {
                     </span>
                   ))}
                 </BlobPill>
-              </div>
+              </MotionFade>
             </div>
 
             {/* Subtitle */}
-            <p
+            <MotionFade
+              as="p"
               className="mt-6 max-w-full tablet:max-w-[410px] md:max-w-md
                 font-nav text-base leading-relaxed text-[rgb(var(--fg))]"
+              direction="down"
+              delay={0.3}
             >
               {t('hero.subtitle')}
-            </p>
+            </MotionFade>
             {/* CTA + Logo: mobile stacked, tablet row, md normal */}
             <div className="mt-6 md:mt-8">
               {/* Mobile: logo centered */}
-              <div className="pointer-events-none flex justify-center tablet:hidden md:hidden">
+
+              <MotionFade
+                as="div"
+                className="pointer-events-none flex justify-center tablet:hidden md:hidden"
+                direction="up"
+                delay={0.3}
+                duration={0.6}
+              >
                 <div className="relative opacity-90 h-32 w-32 sm:h-34 sm:w-34">
                   <LogoStampImage />
                 </div>
-              </div>
+              </MotionFade>
 
               {/* Tablet: buttons left + logo right (same row) */}
               <div className="hidden tablet:flex md:hidden items-end justify-between gap-6">
-                <div className="flex flex-nowrap justify-start gap-3 sm:gap-4">
+                <MotionFade
+                  as="div"
+                  className="flex flex-nowrap justify-start gap-3 sm:gap-4"
+                  direction="up"
+                  delay={0.4}
+                  duration={0.6}
+                >
                   {CTAButtons}
-                </div>
+                </MotionFade>
 
                 <div className="pointer-events-none shrink-0 opacity-90">
-                  <div className="relative h-28 w-28">
+                  <MotionFade
+                    as="div"
+                    className="relative h-28 w-28"
+                    direction="up"
+                    delay={0.3}
+                    duration={0.6}
+                  >
                     <LogoStampImage />
-                  </div>
+                  </MotionFade>
                 </div>
               </div>
 
               {/* Desktop (md+): buttons like you had */}
-              <div className="hidden md:flex flex-nowrap justify-start gap-3 sm:gap-4">
+              <MotionFade
+                as="div"
+                className="hidden md:flex flex-nowrap justify-start gap-3 sm:gap-4"
+                direction="up"
+                delay={0.4}
+                duration={0.6}
+              >
                 {CTAButtons}
-              </div>
-
+              </MotionFade>
               {/* Mobile buttons (centered) */}
-              <div className="mt-6 flex flex-nowrap justify-center gap-3 sm:gap-4 tablet:hidden md:hidden">
+              <MotionFade
+                as="div"
+                className="mt-6 flex flex-nowrap justify-center gap-3 sm:gap-4 tablet:hidden md:hidden"
+                direction="up"
+                delay={0.4}
+                duration={0.6}
+              >
                 {CTAButtons}
-              </div>
+              </MotionFade>
             </div>
 
             {/* Logo (absolute) — md+ */}
             <div className="pointer-events-none absolute bottom-6 right-6 hidden md:block ">
-              <div className="relative h-32 w-32">
+              <MotionFade
+                as="div"
+                className="relative h-32 w-32"
+                direction="up"
+                delay={0.3}
+                duration={0.6}
+              >
                 <LogoStampImage />
-              </div>
+              </MotionFade>
             </div>
           </div>
 
           {/* RIGHT (yellow + image) */}
           <div className="relative bg-(--tint-1) w-full min-h-80 md:min-h-130 overflow-hidden">
             {/* character image */}
-            <div className="relative mx-auto h-95 w-full max-w-205 md:h-130">
+            <MotionFade
+              as="div"
+              className="relative mx-auto h-95 w-full max-w-205 md:h-130"
+              direction="up"
+              delay={0.4}
+              duration={0.6}
+            >
               <Image
                 src="/imagenHeroTransparent.png"
                 alt="lab emotions illustration"
@@ -120,9 +177,10 @@ export default function Hero() {
                 priority
                 className="object-contain"
               />
-            </div>
+            </MotionFade>
 
             {/* pink blobs (decor) */}
+
             <PinkBlobs />
           </div>
         </div>

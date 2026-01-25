@@ -4,6 +4,7 @@ import { useMemo, useRef, useState, useEffect } from 'react'
 import Image from 'next/image'
 import { useTranslations } from 'next-intl'
 import { createPortal } from 'react-dom'
+import { MotionFade } from '@/components/visuals/motion/MotionFade'
 
 type Lang = 'es' | 'en' | 'sv'
 type FormatKey = 'kindle' | 'paperback' | 'etsy'
@@ -90,18 +91,32 @@ export default function BooksSection() {
       {/* content */}
       <section className="relative w-full bg-(--tint-1) py-5 sm:py-10">
         <div className="relative mx-auto max-w-6xl px-(--page-pad)">
-          <h2
+          <MotionFade
+            as="h2"
             id="books-title"
             className="text-center font-subtitle text-5xl text-black sm:text-6xl"
+            direction="down"
+            delay={0.3}
+            duration={0.6}
           >
             {t('title')}
-          </h2>
-
-          <p className="mx-auto mt-4 max-w-2xl text-center font-nav text-sm text-black sm:text-base font-semibold">
+          </MotionFade>
+          <MotionFade
+            as="p"
+            className="mx-auto mt-4 max-w-2xl text-center font-nav text-sm text-black sm:text-base font-semibold"
+            direction="up"
+            delay={0.4}
+            duration={0.6}
+          >
             {t('subtitle')}
-          </p>
-
-          <div className={gridClassName}>
+          </MotionFade>
+          <MotionFade
+            as="div"
+            className={gridClassName}
+            direction="up"
+            delay={0.4}
+            duration={0.6}
+          >
             {books.map((b) => (
               <div
                 key={b.id}
@@ -113,7 +128,7 @@ export default function BooksSection() {
                 <BookCard book={b} />
               </div>
             ))}
-          </div>
+          </MotionFade>
         </div>
       </section>
 

@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useState } from 'react'
 import { useTranslations } from 'next-intl'
+import { MotionFade } from '@/components/visuals/motion/MotionFade'
 
 type FieldName = 'name' | 'subject' | 'email' | 'message'
 type FieldErrors = Partial<Record<FieldName, string>>
@@ -138,17 +139,34 @@ export default function ContactSection() {
 
       <div className="mx-auto max-w-6xl px-(--page-pad)">
         <header className="text-center">
-          <h2 className="font-subtitle text-4xl text-[rgb(var(--fg))] sm:text-5xl font-semibold">
+          <MotionFade
+            as="h2"
+            className="font-subtitle text-4xl text-[rgb(var(--fg))] sm:text-5xl font-semibold"
+            direction="down"
+            delay={0.3}
+            duration={0.6}
+          >
             {copy.title}
-          </h2>
+          </MotionFade>
           {copy.subtitle ? (
-            <p className="font-semibold mx-auto mt-3 max-w-2xl font-nav text-sm text-[rgb(var(--fg))]/80 sm:text-base">
+            <MotionFade
+              as="p"
+              className="font-semibold mx-auto mt-3 max-w-2xl font-nav text-sm text-[rgb(var(--fg))]/80 sm:text-base"
+              direction="up"
+              delay={0.2}
+              duration={0.6}
+            >
               {copy.subtitle}
-            </p>
+            </MotionFade>
           ) : null}
         </header>
-
-        <div className="mt-10 flex justify-center">
+        <MotionFade
+          as="div"
+          className="mt-10 flex justify-center"
+          direction="up"
+          delay={0.4}
+          duration={0.6}
+        >
           <form
             onSubmit={onSubmit}
             className="
@@ -281,7 +299,7 @@ export default function ContactSection() {
               ) : null}
             </div>
           </form>
-        </div>
+        </MotionFade>
       </div>
     </section>
   )

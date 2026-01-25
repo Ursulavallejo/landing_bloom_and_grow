@@ -1,70 +1,139 @@
-// "use client";
+'use client'
 
-// import { motion } from "framer-motion";
-// import type { Transition } from "framer-motion";
-// import { fadeIn, type Direction } from "@/variants";
-// import type { ReactNode } from "react";
-// import { useEffect, useState } from "react";
-// import { useMotionSettings } from "@/hooks/useMotionSettings";
+import { motion, useReducedMotion } from 'framer-motion'
+import type { ReactNode } from 'react'
+import type { Transition, Variants } from 'framer-motion'
+import { fadeIn, type Direction } from '@/lib/motion/variants'
 
-// type MotionFadeProps = {
-//   children: ReactNode;
-//   direction?: Direction;
-//   delay?: number;
-//   className?: string;
-//   durationHidden?: number;
-//   durationShow?: number;
-//   easeHidden?: Transition["ease"];
-//   easeShow?: Transition["ease"];
-// };
+type SupportedTag =
+  | 'div'
+  | 'span'
+  | 'p'
+  | 'h1'
+  | 'h2'
+  | 'h3'
+  | 'section'
+  | 'article'
+  | 'header'
+  | 'ul'
+  | 'li'
 
-// export function MotionFade({
-//   children,
-//   direction = "up",
-//   delay = 0,
-//   className = "",
-//   durationHidden,
-//   durationShow,
-//   easeHidden,
-//   easeShow,
-// }: MotionFadeProps) {
-//   const { shouldReduceMotion } = useMotionSettings();
+type MotionFadeOwnProps = {
+  as?: SupportedTag
+  children: ReactNode
+  direction?: Direction
+  delay?: number
+  className?: string
+  duration?: number
+  distance?: number
+  ease?: Transition['ease']
+  inView?: boolean
+  once?: boolean
+  amount?: number
+}
 
-//   const [mounted, setMounted] = useState(false);
+/**
+ * Allow only "safe" DOM props that do not conflict with Framer Motion prop names.
+ * (Framer Motion uses onAnimationStart/onDrag/etc with different signatures.)
+ */
+type DataAttributes = {
+  [key: `data-${string}`]: string | number | boolean | undefined
+}
 
-//   useEffect(() => {
-//     setMounted(true);
-//   }, []);
+type SafeEvents = {
+  onClick?: React.MouseEventHandler<HTMLElement>
+  onKeyDown?: React.KeyboardEventHandler<HTMLElement>
+  onKeyUp?: React.KeyboardEventHandler<HTMLElement>
+  onMouseEnter?: React.MouseEventHandler<HTMLElement>
+  onMouseLeave?: React.MouseEventHandler<HTMLElement>
+  onFocus?: React.FocusEventHandler<HTMLElement>
+  onBlur?: React.FocusEventHandler<HTMLElement>
+}
 
-//   if (!mounted) {
-//     return <div className={className}>{children}</div>;
-//   }
+type SafeDomProps = {
+  id?: string
+  title?: string
+  role?: React.AriaRole
+  tabIndex?: number
+  style?: React.CSSProperties
+} & React.AriaAttributes &
+  DataAttributes &
+  SafeEvents
 
-//   if (shouldReduceMotion) {
-//     return (
-//       <motion.div className={className} initial={false} animate={false}>
-//         {children}
-//       </motion.div>
-//     );
-//   }
+type MotionFadeProps = MotionFadeOwnProps & SafeDomProps
 
-//   const variants = fadeIn(direction, {
-//     delay,
-//     durationHidden,
-//     durationShow,
-//     easeHidden,
-//     easeShow,
-//   });
+const motionTag = {
+  div: motion.div,
+  span: motion.span,
+  p: motion.p,
+  h1: motion.h1,
+  h2: motion.h2,
+  h3: motion.h3,
+  section: motion.section,
+  article: motion.article,
+  header: motion.header,
+  ul: motion.ul,
+  li: motion.li,
+} as const
 
-//   return (
-//     <motion.div
-//       initial="hidden"
-//       animate="show"
-//       exit="hidden"
-//       variants={variants}
-//       className={className}
-//     >
-//       {children}
-//     </motion.div>
-//   );
-// }
+export function MotionFade({
+  as = 'div',
+  children,
+  direction = 'up',
+  delay = 0,
+  className = '',
+  duration = 0.55,
+  distance = 18,
+  ease,
+  inView = true,
+  once = true,
+  amount = 0.2,
+  ...rest
+}: MotionFadeProps) {
+  const shouldReduceMotion = useReducedMotion()
+
+  // Respect prefers-reduced-motion: render a plain semantic element (no animation)
+  if (shouldReduceMotion) {
+    const Tag = as
+    return (
+      <Tag className={className} {...rest}>
+        {children}
+      </Tag>
+    )
+  }
+
+  const variants: Variants = fadeIn(direction, {
+    delay,
+    duration,
+    distance,
+    ease,
+  })
+  const Comp = motionTag[as]
+
+  if (inView) {
+    return (
+      <Comp
+        className={className}
+        variants={variants}
+        initial="hidden"
+        whileInView="show"
+        viewport={{ once, amount }}
+        {...rest}
+      >
+        {children}
+      </Comp>
+    )
+  }
+
+  return (
+    <Comp
+      className={className}
+      variants={variants}
+      initial="hidden"
+      animate="show"
+      {...rest}
+    >
+      {children}
+    </Comp>
+  )
+}

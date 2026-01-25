@@ -2,6 +2,7 @@
 
 import { useTranslations } from 'next-intl'
 import Image from 'next/image'
+import { MotionFade } from '@/components/visuals/motion/MotionFade'
 
 export default function AboutSection() {
   const t = useTranslations('about')
@@ -10,15 +11,25 @@ export default function AboutSection() {
     <section className="relative w-full py-16 sm:py-24">
       <div className="relative mx-auto max-w-6xl px-(--page-pad)">
         {/* Title */}
-        <h2
+        <MotionFade
+          as="h2"
           id="about-title"
           className="mb-12 text-center font-subtitle text-5xl sm:text-6xl text-[rgb(var(--fg))]"
+          direction="down"
+          delay={0.3}
+          duration={0.6}
         >
           {t('title')}
-        </h2>
+        </MotionFade>
 
         {/* Cards grid */}
-        <div className="grid grid-cols-1 gap-8 sm:grid-cols-2">
+        <MotionFade
+          as="div"
+          className="grid grid-cols-1 gap-8 sm:grid-cols-2"
+          direction="up"
+          delay={0.2}
+          duration={0.6}
+        >
           {/* Card 1 */}
           <AboutCard
             photo="/profileUrsulaAbout.png"
@@ -36,7 +47,7 @@ export default function AboutSection() {
             text={t('person2.text')}
             imgClassName="scale-[1.10] translate-y-3"
           />
-        </div>
+        </MotionFade>
       </div>
     </section>
   )

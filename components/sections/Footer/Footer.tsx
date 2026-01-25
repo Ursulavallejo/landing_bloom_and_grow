@@ -4,6 +4,7 @@
 import Image from 'next/image'
 import { useTranslations } from 'next-intl'
 import { SocialLinks } from '@/components/layout/SocialLinks'
+import { MotionFade } from '@/components/visuals/motion/MotionFade'
 
 export default function Footer() {
   const t = useTranslations('footer')
@@ -79,7 +80,7 @@ function FooterWaveTop({ className = '' }: { className?: string }) {
   return (
     <svg
       aria-hidden="true"
-      className={`pointer-events-none ${className} h-14 sm:h-16 -scale-y-100`}
+      className={`pointer-events-none ${className} h-16 sm:h-19 -scale-y-100`}
       viewBox="0 0 1440 160"
       preserveAspectRatio="none"
     >

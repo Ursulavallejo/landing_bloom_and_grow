@@ -3,6 +3,7 @@
 import { useTranslations } from 'next-intl'
 import { Icons } from '@/icons'
 import P5Background from '@/components/visuals/p5/P5BackgroundProject'
+import { MotionFade } from '@/components/visuals/motion/MotionFade'
 
 export default function OurProjectSection() {
   const t = useTranslations()
@@ -48,18 +49,35 @@ export default function OurProjectSection() {
           <div className="relative z-10 mx-auto max-w-6xl px-(--page-pad) pt-16 sm:pt-20 pb-14 ">
             {/* Title */}
             <header className="text-center">
-              <h2 className="font-subtitle text-3xl tracking-wide text-[rgb(var(--fg))] sm:text-4xl md:text-5xl">
+              <MotionFade
+                as="h2"
+                className="font-subtitle text-3xl tracking-wide text-[rgb(var(--fg))] sm:text-4xl md:text-5xl"
+                direction="down"
+                delay={0.3}
+                duration={0.6}
+              >
                 {t('project.title')}
-              </h2>
-
+              </MotionFade>
               {/* small lead */}
-              <p className="mx-auto mt-4 max-w-2xl font-subtitle tracking-wide font-medium text-base leading-relaxed text-[rgb(var(--fg))]/90 sm:text-lg">
+              <MotionFade
+                as="p"
+                className="mx-auto mt-4 max-w-2xl font-subtitle tracking-wide font-medium text-base leading-relaxed text-[rgb(var(--fg))]/90 sm:text-lg"
+                direction="up"
+                delay={0.4}
+                duration={0.6}
+              >
                 <span className="font-semibold">{t('project.lead')}</span>
-              </p>
+              </MotionFade>
             </header>
 
             {/* Centered content (no animation) */}
-            <div className="mt-10 flex justify-center">
+            <MotionFade
+              as="div"
+              className="mt-10 flex justify-center"
+              direction="up"
+              delay={0.4}
+              duration={0.6}
+            >
               <article
                 className="
                   w-full max-w-3xl
@@ -107,7 +125,7 @@ export default function OurProjectSection() {
                   </span>
                 </div>
               </article>
-            </div>
+            </MotionFade>
           </div>
         </div>
       </section>
