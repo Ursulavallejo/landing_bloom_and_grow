@@ -24,10 +24,10 @@ export default function OurProjectSection() {
               parallax={0.6}
               particleCount={70}
               glyphCount={14}
-              bigGlyphCount={10}
+              bigGlyphCount={12}
               particleRadius={[2.2, 5.2]}
               glyphSize={[26, 44]}
-              bigGlyphSize={[64, 108]}
+              bigGlyphSize={[64, 112]}
             />
           </div>
           {/* Desktop/tablet: your current */}
