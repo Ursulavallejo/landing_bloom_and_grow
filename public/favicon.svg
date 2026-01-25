@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">
+  <!-- background -->
+  <rect width="128" height="128" rx="18" fill="#000"/>
+
+  <!-- flask outline -->
+  <path
+    d="M54 10
+       C54 8 56 6 58 6
+       H70
+       C72 6 74 8 74 10
+       V28
+       C74 36 80 44 86 52
+       C98 66 106 80 106 100
+       C106 120 88 122 64 122
+       C40 122 22 120 22 100
+       C22 80 30 66 42 52
+       C48 44 54 36 54 28
+       Z"
+    fill="none"
+    stroke="#fff"
+    stroke-width="8.5"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    opacity="0.97"
+  />
+
+  <!-- neck lip -->
+  <path
+    d="M58 10 H70"
+    fill="none"
+    stroke="#fff"
+    stroke-width="8.5"
+    stroke-linecap="round"
+    opacity="0.97"
+  />
+
+  <!-- heart  -->
+  <g transform="translate(0, 22) ">
+
+<path
+  d="M64 92
+     C64 92 34 78 34 58
+     C34 44 46 36 56 36
+     C60 35 62.5 41 64 51
+     C65.5 40 68 36 72 36
+     C82 36 94 44 94 58
+     C94 78 64 92 64 92
+     Z"
+  fill="#ff2db7"
+/>
+
+  </g>
+</svg>

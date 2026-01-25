@@ -1,9 +1,16 @@
+import type { Metadata } from 'next'
 import Footer from '@/components/sections/Footer/Footer'
 import { setRequestLocale } from 'next-intl/server'
 import { routing } from '@/i18n/routing'
 import { notFound } from 'next/navigation'
 import { NextIntlClientProvider, hasLocale } from 'next-intl'
 import { getMessages } from 'next-intl/server'
+
+export const metadata: Metadata = {
+  icons: {
+    icon: '/favicon.svg',
+  },
+}
 
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }))
