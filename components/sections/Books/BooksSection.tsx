@@ -1,6 +1,6 @@
 'use client'
 
-import { useMemo, useRef, useState } from 'react'
+import { useMemo, useRef, useState, useEffect } from 'react'
 import Image from 'next/image'
 import { useTranslations } from 'next-intl'
 import { createPortal } from 'react-dom'
@@ -329,6 +329,22 @@ function BuyOptionsModal({
   topPx: number
 }) {
   const t = useTranslations('books')
+
+  useEffect(() => {
+    if (!open) return
+
+    const originalOverflow = document.body.style.overflow
+    const originalOverscroll = document.body.style.overscrollBehavior
+
+    document.body.style.overflow = 'hidden'
+    document.body.style.overscrollBehavior = 'none'
+
+    return () => {
+      document.body.style.overflow = originalOverflow
+      document.body.style.overscrollBehavior = originalOverscroll
+    }
+  }, [open])
+
   const canUseDOM = typeof window !== 'undefined' && !!window.document?.body
   if (!open || !canUseDOM) return null
 
@@ -341,10 +357,10 @@ function BuyOptionsModal({
         aria-label={t('close')}
       />
       <div
-        className="absolute left-1/2 w-[min(92vw,780px)] -translate-x-1/2"
+        className="absolute left-1/2 w-[min(92vw,780px)] -translate-x-1/2 top-6 sm:top-auto"
         style={{ top: topPx }}
       >
-        <div className="rounded-3xl border border-[rgb(var(--border))] bg-[rgb(var(--card))] p-5 shadow-2xl sm:p-6 max-h-[calc(100vh-48px)] overflow-y-auto">
+        <div className="rounded-3xl border border-[rgb(var(--border))] bg-[rgb(var(--card))] p-5 shadow-2xl sm:p-6 max-h-[calc(100vh-48px)] overflow-y-auto overscroll-contain touch-pan-y [ -webkit-overflow-scrolling: touch ]">
           {/* content modal */}
           <div className="flex items-start justify-between gap-4">
             <div>
