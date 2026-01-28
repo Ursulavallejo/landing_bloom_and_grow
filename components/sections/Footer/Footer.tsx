@@ -26,11 +26,11 @@ export default function Footer() {
                 className="object-contain"
               />
             </div>
-            <h3 className="font-subtitle text-3xl text-[rgb(var(--fg))] sm:text-4xl">
+            <h3 className="font-subtitle  text-3xl text-[rgb(var(--fg))] sm:text-4xl">
               Bloom &amp; Grow Lab
             </h3>
 
-            <p className="mx-auto mt-4 font-nav text-sm leading-relaxed text-[rgb(var(--fg))]/85 sm:text-base">
+            <p className="mx-auto mt-4 font-semibold tracking-wide font-nav text-sm leading-relaxed text-[rgb(var(--fg))]/85 sm:text-base">
               {t('description')}
             </p>
 
@@ -49,7 +49,7 @@ export default function Footer() {
 
           {/* Bottom row */}
           <div className="mt-6 border-t border-[rgb(var(--fg))]/15 pt-4">
-            <div className="flex flex-col items-center justify-between gap-3 text-center sm:flex-row sm:text-left">
+            <div className="flex flex-col font-semibold tracking-wide items-center justify-between gap-3 text-center sm:flex-row sm:text-left">
               {/* TODO >> When my page is active use link */}
               <p className="font-nav text-xs text-[rgb(var(--fg))]/80">
                 © 2026{' '}
