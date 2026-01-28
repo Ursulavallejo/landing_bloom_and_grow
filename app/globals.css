@@ -28,6 +28,12 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
+@media (max-width: 768px) {
+  section[id] {
+    scroll-margin-top: 88px;
+  }
+}
+
 .font-hero {
   font-family: var(--font-barrio), system-ui, sans-serif;
 }
