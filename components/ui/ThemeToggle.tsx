@@ -18,30 +18,45 @@ export default function ThemeToggle() {
   const SunIcon = Icons.sunIcon
   const MoonIcon = Icons.moonIcon
 
+  const label = ready
+    ? isDark
+      ? 'Switch to light theme'
+      : 'Switch to dark theme'
+    : 'Toggle theme'
+
   return (
     <button
       type="button"
-      aria-label="Toggle theme"
+      aria-label={label}
+      aria-pressed={ready ? isDark : undefined}
       className="
-    rounded-xl
-    border border-[rgb(var(--border))]
-    bg-[rgb(var(--card))]
-    p-2
-    text-[rgb(var(--fg))]
-    transition
-    hover:text-[rgb(var(--primary))]
-
-  "
+        rounded-xl
+        border border-[rgb(var(--border))]
+        bg-[rgb(var(--card))]
+        p-2
+        text-[rgb(var(--fg))]
+        transition
+        hover:text-[rgb(var(--primary))]
+        focus-visible:outline-none
+        focus-visible:ring-2
+        focus-visible:ring-[rgb(var(--primary))]
+        focus-visible:ring-offset-2
+        focus-visible:ring-offset-transparent
+      "
       onClick={() => setTheme(isDark ? 'light' : 'dark')}
     >
       {ready ? (
         isDark ? (
-          <SunIcon className="h-5 w-5" />
+          <span aria-hidden="true">
+            <SunIcon className="h-5 w-5" />
+          </span>
         ) : (
-          <MoonIcon className="h-5 w-5" />
+          <span aria-hidden="true">
+            <MoonIcon className="h-5 w-5" />
+          </span>
         )
       ) : (
-        <span className="inline-block h-5 w-5" />
+        <span className="inline-block h-5 w-5" aria-hidden="true" />
       )}
     </button>
   )

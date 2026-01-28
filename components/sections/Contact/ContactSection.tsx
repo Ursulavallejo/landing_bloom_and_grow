@@ -39,33 +39,25 @@ export default function ContactSection() {
     [t],
   )
 
-  // Auto-hide success/error message after a while
   useEffect(() => {
     if (status !== 'success' && status !== 'error') return
-
     const ms = status === 'success' ? 5000 : 9000
     const timer = window.setTimeout(() => setStatus('idle'), ms)
-
     return () => window.clearTimeout(timer)
   }, [status])
 
   function validateField(field: FieldName, value: string): string | undefined {
     const v = value.trim()
-
-    if (field === 'name' || field === 'subject') {
-      if (!v) return t('errors.required')
-      return
-    }
-
-    if (field === 'email') {
-      if (!v) return t('errors.required')
-      if (!EMAIL_RE.test(v)) return t('errors.email')
-      return
-    }
-
-    // message
     if (!v) return t('errors.required')
-    if (v.length < 10) return t('errors.minMessage')
+
+    if (field === 'email' && !EMAIL_RE.test(v)) {
+      return t('errors.email')
+    }
+
+    if (field === 'message' && v.length < 10) {
+      return t('errors.minMessage')
+    }
+
     return
   }
 
@@ -80,15 +72,13 @@ export default function ContactSection() {
 
   function validateAll(): boolean {
     const next: FieldErrors = {}
-    const nameErr = validateField('name', name)
-    const subjectErr = validateField('subject', subject)
-    const emailErr = validateField('email', email)
-    const messageErr = validateField('message', message)
-
-    if (nameErr) next.name = nameErr
-    if (subjectErr) next.subject = subjectErr
-    if (emailErr) next.email = emailErr
-    if (messageErr) next.message = messageErr
+    ;(['name', 'subject', 'email', 'message'] as FieldName[]).forEach(
+      (field) => {
+        const value = { name, subject, email, message }[field]
+        const err = validateField(field, value)
+        if (err) next[field] = err
+      },
+    )
 
     setErrors(next)
     setTouched({ name: true, subject: true, email: true, message: true })
@@ -96,7 +86,6 @@ export default function ContactSection() {
   }
 
   function clearStatusIfNeeded() {
-    // If user interacts again, hide old success/error immediately
     setStatus((s) => (s === 'success' || s === 'error' ? 'idle' : s))
   }
 
@@ -105,7 +94,6 @@ export default function ContactSection() {
     clearStatusIfNeeded()
 
     if (!validateAll()) return
-
     setStatus('sending')
 
     try {
@@ -115,7 +103,7 @@ export default function ContactSection() {
         body: JSON.stringify({ name, subject, email, message }),
       })
 
-      if (!res.ok) throw new Error('Request failed')
+      if (!res.ok) throw new Error()
 
       setStatus('success')
       setErrors({})
@@ -126,57 +114,32 @@ export default function ContactSection() {
       setMessage('')
     } catch {
       setStatus('error')
-      // Keep values so user can retry
     }
   }
 
-  return (
-    <section
-      id="contact"
-      className="relative w-full pt-16 pb-24 sm:pt-24 sm:pb-34 "
-    >
-      <div className="absolute inset-0 -z-10 bg-transparent " />
+  const statusId = 'contact-status'
 
+  return (
+    <section id="contact" className="relative w-full pt-16 pb-24 sm:pt-24">
       <div className="mx-auto max-w-6xl px-(--page-pad)">
         <header className="text-center">
           <MotionFade
             as="h2"
-            className="font-subtitle text-4xl text-[rgb(var(--fg))] sm:text-5xl font-semibold"
-            direction="down"
-            delay={0.3}
-            duration={0.6}
+            className="font-subtitle text-4xl sm:text-5xl font-semibold"
           >
             {copy.title}
           </MotionFade>
-          {copy.subtitle ? (
-            <MotionFade
-              as="p"
-              className="font-semibold mx-auto mt-3 max-w-2xl font-nav text-sm text-[rgb(var(--fg))]/80 sm:text-base"
-              direction="up"
-              delay={0.2}
-              duration={0.6}
-            >
-              {copy.subtitle}
-            </MotionFade>
-          ) : null}
         </header>
-        <MotionFade
-          as="div"
-          className="mt-10 flex justify-center"
-          direction="up"
-          delay={0.4}
-          duration={0.6}
-        >
+
+        <MotionFade as="div" className="mt-10 flex justify-center">
           <form
             onSubmit={onSubmit}
-            className="
-              w-full max-w-3xl
-              rounded-3xl border border-[rgb(var(--border))]
-              bg-[rgb(var(--card))]
-              p-6 shadow-sm sm:p-10
-            "
+            aria-describedby={status !== 'idle' ? statusId : undefined}
+            className="w-full max-w-3xl rounded-3xl border border-[rgb(var(--border))] bg-[rgb(var(--card))] p-6 sm:p-10"
           >
             <FieldLine
+              id="contact-name"
+              name="name"
               label={copy.line1}
               value={name}
               placeholder={t('placeholders.name')}
@@ -191,12 +154,13 @@ export default function ContactSection() {
                 setFieldError('name', validateField('name', name))
               }}
               error={touched.name ? errors.name : undefined}
-              inputMode="text"
               autoComplete="name"
             />
 
             <div className="mt-8">
               <FieldLine
+                id="contact-subject"
+                name="subject"
                 label={copy.line2}
                 value={subject}
                 placeholder={t('placeholders.subject')}
@@ -211,12 +175,14 @@ export default function ContactSection() {
                   setFieldError('subject', validateField('subject', subject))
                 }}
                 error={touched.subject ? errors.subject : undefined}
-                inputMode="text"
               />
             </div>
 
             <div className="mt-8">
               <FieldLine
+                id="contact-email"
+                name="email"
+                type="email"
                 label={copy.line3}
                 value={email}
                 placeholder={t('placeholders.email')}
@@ -231,47 +197,59 @@ export default function ContactSection() {
                   setFieldError('email', validateField('email', email))
                 }}
                 error={touched.email ? errors.email : undefined}
-                inputMode="email"
                 autoComplete="email"
               />
             </div>
 
             <div className="mt-8">
-              <p className="font-subtitle text-2xl text-[rgb(var(--fg))] sm:text-3xl">
+              <label
+                htmlFor="contact-message"
+                className="block font-subtitle text-2xl sm:text-3xl"
+              >
                 {copy.line4}
-              </p>
+              </label>
 
-              <div className="mt-3">
-                <textarea
-                  value={message}
-                  onChange={(e) => {
-                    clearStatusIfNeeded()
-                    const v = e.target.value
-                    setMessage(v)
-                    if (touched.message)
-                      setFieldError('message', validateField('message', v))
-                  }}
-                  onBlur={() => {
-                    setTouched((p) => ({ ...p, message: true }))
-                    setFieldError('message', validateField('message', message))
-                  }}
-                  placeholder={t('placeholders.message')}
-                  rows={5}
-                  className={[
-                    'w-full resize-none bg-transparent',
-                    'border-b-2 pb-3 outline-none',
-                    'text-[rgb(var(--fg))] placeholder:text-[rgb(var(--fg))]/35',
-                    touched.message && errors.message
-                      ? 'border-red-500 focus:border-red-500'
-                      : 'border-[rgb(var(--border))] focus:border-[rgb(var(--fg))]/55',
-                  ].join(' ')}
-                />
-                {touched.message && errors.message ? (
-                  <p className="mt-2 font-nav text-xs text-red-500">
-                    {errors.message}
-                  </p>
-                ) : null}
-              </div>
+              <textarea
+                id="contact-message"
+                value={message}
+                onChange={(e) => {
+                  clearStatusIfNeeded()
+                  const v = e.target.value
+                  setMessage(v)
+                  if (touched.message)
+                    setFieldError('message', validateField('message', v))
+                }}
+                onBlur={() => {
+                  setTouched((p) => ({ ...p, message: true }))
+                  setFieldError('message', validateField('message', message))
+                }}
+                placeholder={t('placeholders.message')}
+                rows={5}
+                aria-invalid={Boolean(touched.message && errors.message)}
+                aria-describedby={
+                  touched.message && errors.message
+                    ? 'contact-message-error'
+                    : undefined
+                }
+                className={[
+                  'mt-3 w-full resize-none bg-transparent',
+                  'border-b-2 pb-3',
+                  'text-[rgb(var(--fg))] placeholder:text-[rgb(var(--fg))]/35',
+                  'focus-visible:outline-none',
+                  touched.message && errors.message
+                    ? 'border-red-500 focus-visible:shadow-[0_0_0_1px_rgba(239,68,68,0.18)]'
+                    : 'border-[rgb(var(--border))] focus-visible:border-[rgb(var(--fg))]/40 focus-visible:shadow-[0_0_0_1px_rgba(0,0,0,0.12)]',
+                ].join(' ')}
+              />
+
+              {touched.message && errors.message ? (
+                <p
+                  id="contact-message-error"
+                  className="mt-2 text-xs text-red-500"
+                >
+                  {errors.message}
+                </p>
+              ) : null}
             </div>
 
             <div className="mt-10 flex items-center gap-4">
@@ -279,24 +257,32 @@ export default function ContactSection() {
                 type="submit"
                 disabled={status === 'sending'}
                 className={[
-                  'rounded-full px-8 py-3 font-nav text-sm',
-                  'transition hover:opacity-80 hover:scale-[1.02]',
+                  'rounded-full px-8 py-3 text-sm',
                   'bg-[rgb(var(--fg))] text-[rgb(var(--bg))]',
+                  'transition hover:opacity-80',
+                  'focus-visible:outline-none focus-visible:shadow-[0_0_0_2px_rgba(0,0,0,0.15)]',
                   status === 'sending' ? 'opacity-60 cursor-not-allowed' : '',
                 ].join(' ')}
               >
                 {status === 'sending' ? t('sending') : copy.button}
               </button>
 
-              {status === 'success' ? (
-                <p className="font-nav text-sm text-emerald-600">
+              {status === 'success' && (
+                <p
+                  id={statusId}
+                  role="status"
+                  aria-live="polite"
+                  className="text-sm text-emerald-600"
+                >
                   {copy.success}
                 </p>
-              ) : null}
+              )}
 
-              {status === 'error' ? (
-                <p className="font-nav text-sm text-red-600">{copy.failure}</p>
-              ) : null}
+              {status === 'error' && (
+                <p id={statusId} role="alert" className="text-sm text-red-600">
+                  {copy.failure}
+                </p>
+              )}
             </div>
           </form>
         </MotionFade>
@@ -306,51 +292,63 @@ export default function ContactSection() {
 }
 
 function FieldLine({
+  id,
+  name,
   label,
   value,
   placeholder,
   onChange,
   onBlur,
   error,
-  inputMode,
   autoComplete,
+  type = 'text',
 }: {
+  id: string
+  name: string
   label: string
   value: string
   placeholder: string
   onChange: (v: string) => void
   onBlur?: () => void
   error?: string
-  inputMode?: React.HTMLAttributes<HTMLInputElement>['inputMode']
   autoComplete?: string
+  type?: string
 }) {
+  const errorId = `${id}-error`
+
   return (
     <div>
-      <p className="font-subtitle text-2xl text-[rgb(var(--fg))]  sm:text-3xl">
+      <label htmlFor={id} className="block font-subtitle text-2xl sm:text-3xl">
         {label}
-      </p>
+      </label>
 
-      <div className="mt-3">
-        <input
-          value={value}
-          onChange={(e) => onChange(e.target.value)}
-          onBlur={onBlur}
-          placeholder={placeholder}
-          inputMode={inputMode}
-          autoComplete={autoComplete}
-          className={[
-            'w-full bg-transparent',
-            'border-b-2 pb-3 outline-none',
-            'text-[rgb(var(--fg))] placeholder:text-[rgb(var(--fg))]/35',
-            error
-              ? 'border-red-500 focus:border-red-500'
-              : 'border-[rgb(var(--border))] focus:border-[rgb(var(--fg))]/55',
-          ].join(' ')}
-        />
-        {error ? (
-          <p className="mt-2 font-nav text-xs text-red-500">{error}</p>
-        ) : null}
-      </div>
+      <input
+        id={id}
+        name={name}
+        type={type}
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
+        onBlur={onBlur}
+        placeholder={placeholder}
+        autoComplete={autoComplete}
+        aria-invalid={Boolean(error)}
+        aria-describedby={error ? errorId : undefined}
+        className={[
+          'mt-3 w-full bg-transparent',
+          'border-b-2 pb-3',
+          'text-[rgb(var(--fg))] placeholder:text-[rgb(var(--fg))]/35',
+          'focus-visible:outline-none',
+          error
+            ? 'border-red-500 focus-visible:shadow-[0_0_0_1px_rgba(239,68,68,0.18)]'
+            : 'border-[rgb(var(--border))] focus-visible:border-[rgb(var(--fg))]/40 focus-visible:shadow-[0_0_0_1px_rgba(0,0,0,0.12)]',
+        ].join(' ')}
+      />
+
+      {error && (
+        <p id={errorId} className="mt-2 text-xs text-red-500">
+          {error}
+        </p>
+      )}
     </div>
   )
 }

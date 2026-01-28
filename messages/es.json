@@ -1,6 +1,7 @@
 {
   "nav": {
     "about": "Nosotras",
+    "ariaLabel": "Navegación principal",
     "project": "Proyecto",
     "books": "Libros",
     "contact": "Contacto"
