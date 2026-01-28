@@ -15,20 +15,21 @@ export default function Hero() {
   const CTAButtons = (
     <>
       <a
-        aria-label="Visit Bloom & Grow Lab Store on Amazon (opens in a new tab)"
-        className="rounded-xl bg-[var(--accent-foreground)] px-4 py-3 sm:px-5 font-nav text-sm font-semibold text-white whitespace-nowrap hover:opacity-90 hover:scale-105 transition"
-        target="_blank"
         href="https://www.amazon.com/stores/author/B0GFPK6X39?ingress=0&visitId=e6ba4566-5cf5-42b9-9849-3bc9b868e152&ref_=aufs_ap_ahdr_dsk_aa"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Visit Bloom & Grow Lab on Amazon (opens in a new tab)"
+        className="rounded-xl bg-[var(--accent-foreground)] px-4 py-3 sm:px-5 font-nav text-sm font-semibold text-white whitespace-nowrap hover:opacity-90 hover:scale-105 transition"
       >
         {t('hero.ctaAmazon')}
       </a>
 
       <a
-        aria-label="Visit Bloom & Grow Lab on Etsy (opens in a new tab)"
-        className="rounded-xl bg-[#35B26B] px-4 py-3 sm:px-5 font-nav text-sm font-semibold text-white whitespace-nowrap hover:opacity-90 hover:scale-105 transition"
+        href="https://www.etsy.com/shop/BloomAndGrowLab"
         target="_blank"
         rel="noopener noreferrer"
-        href="https://www.etsy.com/shop/BloomAndGrowLab"
+        aria-label="Visit Bloom & Grow Lab on Etsy (opens in a new tab)"
+        className="rounded-xl bg-[#35B26B] px-4 py-3 sm:px-5 font-nav text-sm font-semibold text-white whitespace-nowrap hover:opacity-90 hover:scale-105 transition"
       >
         {t('hero.ctaEtsy')}
       </a>
@@ -36,9 +37,9 @@ export default function Hero() {
   )
 
   return (
-    <div className="relative overflow-visible ">
+    <div className="relative overflow-visible">
       <section className="relative flex-1 overflow-hidden rounded-3xl border border-[rgb(var(--border))]">
-        <div className="grid  grid-cols-1  md:grid-cols-2">
+        <div className="grid grid-cols-1 md:grid-cols-2">
           {/* LEFT */}
           <div className="relative bg-[rgb(var(--card))] p-8 pb-10 tablet:pb-12 md:p-12 md:pb-12 md:pr-40">
             {/* Hero title */}
@@ -52,6 +53,7 @@ export default function Hero() {
               >
                 BLOOM <br /> &amp; GROW
               </MotionFade>
+
               {/* pill */}
               <MotionFade
                 as="div"
@@ -76,19 +78,19 @@ export default function Hero() {
             {/* Subtitle */}
             <MotionFade
               as="p"
-              className="mt-6 max-w-full tablet:max-w-[410px] md:max-w-md
-                font-nav text-base leading-relaxed text-[rgb(var(--fg))]"
+              className="mt-6 max-w-full tablet:max-w-[410px] md:max-w-md font-nav text-base leading-relaxed text-[rgb(var(--fg))]"
               direction="down"
               delay={0.3}
             >
               {t('hero.subtitle')}
             </MotionFade>
-            {/* CTA + Logo: mobile stacked, tablet row, md normal */}
-            <div className="mt-6 md:mt-8">
-              {/* Mobile: logo centered */}
 
+            {/* CTA + Logo */}
+            <div className="mt-6 md:mt-8">
+              {/* Mobile: logo centered (decorative) */}
               <MotionFade
                 as="div"
+                aria-hidden="true"
                 className="pointer-events-none flex justify-center tablet:hidden md:hidden"
                 direction="up"
                 delay={0.3}
@@ -99,7 +101,7 @@ export default function Hero() {
                 </div>
               </MotionFade>
 
-              {/* Tablet: buttons left + logo right (same row) */}
+              {/* Tablet: buttons left + logo right */}
               <div className="hidden tablet:flex md:hidden items-end justify-between gap-6">
                 <MotionFade
                   as="div"
@@ -111,7 +113,10 @@ export default function Hero() {
                   {CTAButtons}
                 </MotionFade>
 
-                <div className="pointer-events-none shrink-0 opacity-90">
+                <div
+                  aria-hidden="true"
+                  className="pointer-events-none shrink-0 opacity-90"
+                >
                   <MotionFade
                     as="div"
                     className="relative h-28 w-28"
@@ -124,7 +129,7 @@ export default function Hero() {
                 </div>
               </div>
 
-              {/* Desktop (md+): buttons like you had */}
+              {/* Desktop */}
               <MotionFade
                 as="div"
                 className="hidden md:flex flex-nowrap justify-start gap-3 sm:gap-4"
@@ -134,7 +139,8 @@ export default function Hero() {
               >
                 {CTAButtons}
               </MotionFade>
-              {/* Mobile buttons (centered) */}
+
+              {/* Mobile buttons */}
               <MotionFade
                 as="div"
                 className="mt-6 flex flex-nowrap justify-center gap-3 sm:gap-4 tablet:hidden md:hidden"
@@ -146,8 +152,11 @@ export default function Hero() {
               </MotionFade>
             </div>
 
-            {/* Logo (absolute) — md+ */}
-            <div className="pointer-events-none absolute bottom-6 right-6 hidden md:block ">
+            {/* Logo (absolute) — md+ decorative */}
+            <div
+              aria-hidden="true"
+              className="pointer-events-none absolute bottom-6 right-6 hidden md:block"
+            >
               <MotionFade
                 as="div"
                 className="relative h-32 w-32"
@@ -160,9 +169,8 @@ export default function Hero() {
             </div>
           </div>
 
-          {/* RIGHT (yellow + image) */}
+          {/* RIGHT */}
           <div className="relative bg-(--tint-1) w-full min-h-80 md:min-h-130 overflow-hidden">
-            {/* Image Illustration */}
             <MotionFade
               as="div"
               className="relative mx-auto h-95 w-full max-w-205 md:h-130"
@@ -172,20 +180,20 @@ export default function Hero() {
             >
               <Image
                 src="/imagenHeroTransparent.png"
-                alt="lab emotions illustration"
+                alt={t('hero.imageAlt')}
                 fill
                 priority
+                sizes="(max-width: 768px) 100vw, 50vw"
                 className="object-contain"
               />
             </MotionFade>
 
-            {/* pink blobs (decor) */}
-
+            {/* decor */}
             <PinkBlobs />
           </div>
         </div>
       </section>
-      {/* Pink bottom wave overlay (always on top) */}
+
       <PinkWave />
     </div>
   )

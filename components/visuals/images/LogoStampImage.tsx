@@ -2,21 +2,9 @@
 
 import Image from 'next/image'
 import { useTheme } from 'next-themes'
-import { useSyncExternalStore } from 'react'
-
-function useIsClient() {
-  return useSyncExternalStore(
-    () => () => {},
-    () => true,
-    () => false
-  )
-}
 
 export default function LogoStampImage() {
-  const isClient = useIsClient()
   const { resolvedTheme } = useTheme()
-
-  if (!isClient || !resolvedTheme) return null
 
   const src =
     resolvedTheme === 'dark'
@@ -24,12 +12,13 @@ export default function LogoStampImage() {
       : '/logo_cerebro_flordentro_transp.png'
 
   return (
-    <div className="pointer-events-none">
+    <div className="pointer-events-none relative h-full w-full">
       <Image
         src={src}
-        alt="logo bloom and grow: emotion lab"
+        alt=""
         fill
         priority
+        sizes="(max-width: 768px) 128px, 128px"
         className="object-contain"
       />
     </div>

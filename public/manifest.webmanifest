@@ -1,0 +1,21 @@
+{
+  "name": "Bloom & Grow: The Emotion Lab",
+  "short_name": "Bloom & Grow",
+  "description": "Stories, books, and creative tools for children and families to explore emotions with calm, warmth, and imagination.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#35B26B",
+  "icons": [
+    {
+      "src": "/android-chrome-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/android-chrome-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

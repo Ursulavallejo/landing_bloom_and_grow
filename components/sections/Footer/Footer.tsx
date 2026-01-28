@@ -23,6 +23,7 @@ export default function Footer() {
                 alt="logo bloom and grow: emotion lab"
                 fill
                 priority
+                sizes="(max-width: 768px) 140px, 180px"
                 className="object-contain"
               />
             </div>
