@@ -1,4 +1,3 @@
-// components/BlobPill.tsx
 'use client'
 
 import { ReactNode } from 'react'

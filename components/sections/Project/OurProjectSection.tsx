@@ -4,6 +4,7 @@ import { useTranslations } from 'next-intl'
 import { Icons } from '@/icons'
 import P5Background from '@/components/visuals/p5/P5BackgroundProject'
 import { MotionFade } from '@/components/visuals/motion/MotionFade'
+import SoftPinkWaveBottomProject from '@/components/visuals/decorations/SoftPinkWaveBottomProject'
 
 export default function OurProjectSection() {
   const t = useTranslations()
@@ -15,7 +16,6 @@ export default function OurProjectSection() {
         {/* Full-width pink background */}
         <div className="relative w-full bg-[var(--accent-foreground)] overflow-hidden">
           {/* p5 background: at the back card */}
-
           {/* Mobile: fewer + bigger */}
           <div className="sm:hidden">
             <P5Background
@@ -31,7 +31,7 @@ export default function OurProjectSection() {
               bigGlyphSize={[64, 112]}
             />
           </div>
-          {/* Desktop/tablet: your current */}
+          {/* Desktop/tablet */}
           <div className="hidden sm:block">
             <P5Background
               className="z-0 [--p5-ink-rgb:255_255_255] w-full"
@@ -130,31 +130,7 @@ export default function OurProjectSection() {
         </div>
       </section>
 
-      {/* Soft wave transition at bottom */}
-      <SoftPinkWaveBottom className="block w-full -mt-px" />
+      <SoftPinkWaveBottomProject className="block w-full -mt-px" />
     </>
-  )
-}
-
-function SoftPinkWaveBottom({ className = '' }: { className?: string }) {
-  return (
-    <svg
-      aria-hidden="true"
-      className={`pointer-events-none ${className} h-14 sm:h-16 -scale-y-100`}
-      viewBox="0 0 1440 160"
-      preserveAspectRatio="none"
-    >
-      <path
-        fill="#FF56C9"
-        d="
-          M0,0
-          C120,20 240,40 360,36
-          C480,32 600,10 720,14
-          C840,18 960,48 1080,46
-          C1200,44 1320,24 1440,16
-          L1440,160 L0,160 Z
-        "
-      />
-    </svg>
   )
 }

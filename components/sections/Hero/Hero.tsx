@@ -5,7 +5,6 @@ import { useTranslations } from 'next-intl'
 import BlobPill from '@/components/visuals/decorations/BlobPill'
 import PinkBlobs from '@/components/visuals/decorations/PinkBlobs'
 import PinkWave from '@/components/visuals/decorations/PinkWave'
-// import CurvedTitle from '@/components/CurvedTitle'
 import LogoStampImage from '@/components/visuals/images/LogoStampImage'
 import { MotionFade } from '@/components/visuals/motion/MotionFade'
 
@@ -16,6 +15,7 @@ export default function Hero() {
   const CTAButtons = (
     <>
       <a
+        aria-label="Visit Bloom & Grow Lab Store on Amazon (opens in a new tab)"
         className="rounded-xl bg-[var(--accent-foreground)] px-4 py-3 sm:px-5 font-nav text-sm font-semibold text-white whitespace-nowrap hover:opacity-90 hover:scale-105 transition"
         target="_blank"
         href="https://www.amazon.com/stores/author/B0GFPK6X39?ingress=0&visitId=e6ba4566-5cf5-42b9-9849-3bc9b868e152&ref_=aufs_ap_ahdr_dsk_aa"
@@ -162,7 +162,7 @@ export default function Hero() {
 
           {/* RIGHT (yellow + image) */}
           <div className="relative bg-(--tint-1) w-full min-h-80 md:min-h-130 overflow-hidden">
-            {/* character image */}
+            {/* Image Illustration */}
             <MotionFade
               as="div"
               className="relative mx-auto h-95 w-full max-w-205 md:h-130"

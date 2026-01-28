@@ -2,7 +2,6 @@ import ReviewsReveal from '@/components/sections/Reviews/ReviewsReveal'
 import OurProjectSection from '@/components/sections/Project/OurProjectSection'
 import Hero from '@/components/sections/Hero/Hero'
 import Header from '@/components/layout/Header'
-import Footer from '@/components/sections/Footer/Footer'
 import ContactSection from '@/components/sections/Contact/ContactSection'
 import BooksSection from '@/components/sections/Books/BooksSection'
 import BackgroundImage from '@/components/visuals/images/BackgroundImage'
@@ -13,7 +12,7 @@ export default function Page() {
     <main id="top" className="mx-auto max-w-6xl px-(--page-pad) pt-12">
       <BackgroundImage />
 
-      {/* HERO (puede ser section o header, ambas OK) */}
+      {/* HERO  */}
       <section className="flex flex-col gap-4 pt-9 pb-4 md:pt-6">
         <Header />
         <div
@@ -33,7 +32,7 @@ export default function Page() {
         <OurProjectSection />
       </section>
 
-      {/* ABOUT normal width */}
+      {/* ABOUT */}
       <section id="about" aria-labelledby="about-title">
         <AboutSection />
       </section>

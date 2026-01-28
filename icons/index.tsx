@@ -6,8 +6,6 @@ import {
   FaLinkedinIn,
 } from 'react-icons/fa6'
 
-// import { MdFamilyRestroom } from 'react-icons/md'
-
 export const Icons = {
   // ---- Social ----
   facebookIcon: FaFacebook,

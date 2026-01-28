@@ -1,4 +1,3 @@
-// components/CurvedTitle.tsx
 'use client'
 
 export default function CurvedTitle() {

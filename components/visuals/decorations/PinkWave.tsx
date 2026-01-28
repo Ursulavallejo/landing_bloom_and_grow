@@ -1,4 +1,3 @@
-// components/PinkWave.tsx
 export default function PinkWave() {
   return (
     <>

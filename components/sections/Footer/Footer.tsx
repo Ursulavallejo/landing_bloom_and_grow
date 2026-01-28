@@ -4,7 +4,6 @@
 import Image from 'next/image'
 import { useTranslations } from 'next-intl'
 import { SocialLinks } from '@/components/layout/SocialLinks'
-import { MotionFade } from '@/components/visuals/motion/MotionFade'
 
 export default function Footer() {
   const t = useTranslations('footer')

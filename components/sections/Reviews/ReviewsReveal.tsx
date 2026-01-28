@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { useTranslations } from 'next-intl'
+import QuoteBlock from './QuoteBlock'
 
 type Review = { quote: string; author: string }
 
@@ -46,7 +47,7 @@ export default function ReviewsReveal({
   const stageRef = useRef<HTMLDivElement | null>(null)
   const [progress, setProgress] = useState(0)
 
-  // ✅ progreso 0..1 reversible basado en posición dentro del viewport
+  // progress 0..1 reversible based on the position inside viewport
   useEffect(() => {
     let raf = 0
 
@@ -70,7 +71,7 @@ export default function ReviewsReveal({
     return () => cancelAnimationFrame(raf)
   }, [])
 
-  // ✅ timing para que el Review 2 llegue a 100% antes
+  //timing >> Review 2 reach 100%
   const OUT_START = 0.1
   const OUT_END = 0.45
   const IN_START = 0.42
@@ -98,7 +99,7 @@ export default function ReviewsReveal({
         {/* Desktop sticky reveal */}
         <div className="mt-10 hidden lg:block">
           <div className="relative" style={{ height: `${STAGE_VH}vh` }}>
-            {/* stage con altura real */}
+            {/* stage with real hight */}
             <div
               ref={stageRef}
               className="absolute left-0 right-0 top-0"
@@ -106,7 +107,6 @@ export default function ReviewsReveal({
             />
 
             <div className="sticky top-20 z-10">
-              {/* ✅ más aire entre título y review */}
               <div className="mb-10 sm:mb-12 text-center">
                 <h3
                   className={`font-subtitle text-4xl sm:text-5xl text-[rgb(var(--fg))] ${titleClassName}`}
@@ -152,7 +152,7 @@ export default function ReviewsReveal({
                   />
                 </div>
 
-                {/* Spacer invisible para mantener altura */}
+                {/* Spacer invisible to keep hight */}
                 <div className="invisible pointer-events-none pb-16">
                   <QuoteBlock
                     quote={reviews[1].quote}
@@ -185,42 +185,5 @@ export default function ReviewsReveal({
         </div>
       </div>
     </section>
-  )
-}
-
-function QuoteBlock({
-  quote,
-  author,
-  quoteClassName = '',
-}: {
-  quote: string
-  author: string
-  quoteClassName?: string
-}) {
-  return (
-    <figure className="relative">
-      <span
-        aria-hidden="true"
-        className="pointer-events-none absolute -left-4 -top-6 select-none font-subtitle text-7xl leading-none text-[rgb(var(--fg))]/60 sm:-left-8 sm:-top-8 sm:text-8xl"
-      >
-        “
-      </span>
-      <span
-        aria-hidden="true"
-        className="pointer-events-none absolute -right-4 -bottom-10 select-none font-subtitle text-7xl leading-none text-[rgb(var(--fg))]/60 sm:-right-8 sm:-bottom-12 sm:text-8xl"
-      >
-        ”
-      </span>
-
-      <blockquote
-        className={`whitespace-pre-line font-nav italic text-base leading-relaxed text-[rgb(var(--fg))]/95 sm:text-lg ${quoteClassName}`}
-      >
-        {quote}
-      </blockquote>
-
-      <figcaption className="mt-4 font-nav text-sm font-bold tracking-wide text-[rgb(var(--fg))]/90">
-        — {author}
-      </figcaption>
-    </figure>
   )
 }
