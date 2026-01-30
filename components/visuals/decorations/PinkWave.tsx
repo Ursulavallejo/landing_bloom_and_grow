@@ -15,7 +15,7 @@ export default function PinkWave() {
       >
         {/* LEFT: straight band */}
         <svg
-          className="h-full w-1/2 shrink-0"
+          className="h-full w-1/2 shrink-0 "
           viewBox="0 0 100 200"
           preserveAspectRatio="none"
         >
@@ -24,7 +24,7 @@ export default function PinkWave() {
 
         {/* RIGHT: wave (overlap 2px to hide subpixel gap) */}
         <svg
-          className="h-full w-1/2 shrink-0 -ml-[2px]"
+          className="h-full w-1/2 shrink-0 md:-ml-[2px] md:w-[calc(50%+2px)]"
           viewBox="0 0 720 200"
           preserveAspectRatio="none"
         >
