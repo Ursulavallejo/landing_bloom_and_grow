@@ -1,7 +1,7 @@
 {
   "nav": {
-    "about": "Primary navigation",
-    "ariaLabel": "Navegación principal",
+    "about": "About",
+    "ariaLabel": "Primary navigation",
     "project": "Our Project",
     "books": "Books",
     "contact": "Contact"
