@@ -49,6 +49,7 @@ const motionTag = {
 // SSR-safe "am I on the client?"
 function useIsClient() {
   return useSyncExternalStore(
+    //SSR / cliente vs server
     () => () => {}, // no-op subscribe
     () => true, // client snapshot
     () => false, // server snapshot
