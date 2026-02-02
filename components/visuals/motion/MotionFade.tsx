@@ -1,9 +1,9 @@
 'use client'
 
 import { motion, useReducedMotion } from 'framer-motion'
-import type { ReactNode } from 'react'
-import type { Transition } from 'framer-motion'
 import { useSyncExternalStore } from 'react'
+import type { ReactNode } from 'react'
+import type { Transition, Variants } from 'framer-motion'
 import { fadeIn, type Direction } from '@/lib/motion/variants'
 
 type SupportedTag =
@@ -19,7 +19,7 @@ type SupportedTag =
   | 'ul'
   | 'li'
 
-type MotionFadeProps = {
+type MotionFadeOwnProps = {
   as?: SupportedTag
   children: ReactNode
   direction?: Direction
@@ -30,7 +30,35 @@ type MotionFadeProps = {
   ease?: Transition['ease']
   once?: boolean
   amount?: number
-} & React.AriaAttributes
+  inView?: boolean
+}
+
+type DataAttributes = {
+  [K in `data-${string}`]?: string | number | boolean | undefined
+}
+
+/** Handlers avoid internat conflicts with props related with  framer-motion */
+type SafeEvents = {
+  onClick?: React.MouseEventHandler<HTMLElement>
+  onKeyDown?: React.KeyboardEventHandler<HTMLElement>
+  onKeyUp?: React.KeyboardEventHandler<HTMLElement>
+  onMouseEnter?: React.MouseEventHandler<HTMLElement>
+  onMouseLeave?: React.MouseEventHandler<HTMLElement>
+  onFocus?: React.FocusEventHandler<HTMLElement>
+  onBlur?: React.FocusEventHandler<HTMLElement>
+}
+
+type SafeDomProps = {
+  id?: string
+  title?: string
+  role?: React.AriaRole
+  tabIndex?: number
+  style?: React.CSSProperties
+} & React.AriaAttributes &
+  DataAttributes &
+  SafeEvents
+
+type MotionFadeProps = MotionFadeOwnProps & SafeDomProps
 
 const motionTag = {
   div: motion.div,
@@ -49,7 +77,7 @@ const motionTag = {
 // SSR-safe "am I on the client?"
 function useIsClient() {
   return useSyncExternalStore(
-    //SSR / cliente vs server
+    // instead on setMounted client vs server
     () => () => {}, // no-op subscribe
     () => true, // client snapshot
     () => false, // server snapshot
@@ -67,12 +95,13 @@ export function MotionFade({
   ease,
   once = true,
   amount = 0.2,
+  inView = true,
   ...rest
 }: MotionFadeProps) {
   const isClient = useIsClient()
   const shouldReduceMotion = useReducedMotion()
 
-  // SSR OR reduced motion → plain semantic element (no motion, no initial styles)
+  // SSR OR reduced motion → plain semantic element (no motion, no inline styles)
   if (!isClient || shouldReduceMotion) {
     const Tag = as
     return (
@@ -83,15 +112,34 @@ export function MotionFade({
   }
 
   const Comp = motionTag[as]
-  const variants = fadeIn(direction, { delay, duration, distance, ease })
+  const variants: Variants = fadeIn(direction, {
+    delay,
+    duration,
+    distance,
+    ease,
+  })
+
+  if (inView) {
+    return (
+      <Comp
+        className={className}
+        variants={variants}
+        initial="hidden"
+        whileInView="show"
+        viewport={{ once, amount }}
+        {...rest}
+      >
+        {children}
+      </Comp>
+    )
+  }
 
   return (
     <Comp
       className={className}
       variants={variants}
       initial="hidden"
-      whileInView="show"
-      viewport={{ once, amount }}
+      animate="show"
       {...rest}
     >
       {children}
