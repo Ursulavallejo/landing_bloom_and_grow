@@ -8,9 +8,12 @@ import { getMessages } from 'next-intl/server'
 
 export const metadata: Metadata = {
   icons: {
-    icon: '/favicon.svg',
+    icon: [
+      { url: '/favicon.ico', sizes: 'any' },
+      { url: '/favicon-32.png', sizes: '32x32', type: 'image/png' },
+    ],
     apple: '/apple-touch-icon.png',
-    shortcut: '/favicon-32.png',
+    shortcut: '/favicon.ico',
   },
   metadataBase: new URL('https://bloomandgrowlab.com'),
   title: {
